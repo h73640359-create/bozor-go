@@ -14,17 +14,26 @@ PostgreSQL/Express backend va admin paneli bilan.
 
 | Tekshiruv | Natija |
 |---|---|
-| GitHub Actions: `./gradlew testDebugUnitTest` | ✅ muvaffaqiyatli (run **39133266713**) |
+| GitHub Actions: `./gradlew testDebugUnitTest` | ✅ muvaffaqiyatli (run **39133535192**) |
 | GitHub Actions: `./gradlew assembleDebug` | ✅ muvaffaqiyatli |
-| APK artefakti (`app-debug`) | ✅ 22 019 247 bayt (21,0 MB) — `app/build/outputs/apk/debug/app-debug.apk` |
+| APK artefakti (`app-debug`) | ✅ 22 019 146 bayt (21,0 MB) — `app/build/outputs/apk/debug/app-debug.apk` |
 | APK ichidagi rasmlar (CI tekshiruvi) | ✅ 1000 mahsulot + 15 kategoriya + 15 zaxira + 5 banner rasmi |
 | Katalog: 1000 ta noyob mahsulot | ✅ 71 ta tekshiruv (`--with-images`) + unit testlar |
 | Rasmlar unit testlari (`ImageAssetsTest`) | ✅ 9 ta test (fayl mavjudligi, WebP, ID bo'yicha bog'lash, takrorlanish) |
 | Backend testlari (`cd server && npm test`) | ✅ 14 ta test |
 
 APK **faqat GitHub Actions'da** yig'iladi (loyihada JDK/Android SDK shart).
-Havola: **GitHub → Actions → oxirgi muvaffaqiyatli "Android" ishi → Artifacts → `app-debug`**.
-Debug paket nomi: `uz.bozorgo.debug`, artefakt saqlanadi 2026-11-17 gacha.
+
+To'g'ridan-to'g'ri yuklab olish (GitHub'ga kirgan holda):
+
+- So'nggi yashil ish (run **39133535192**):
+  <https://github.com/h73640359-create/bozor-go/actions/runs/39133535192#artifacts>
+- Artefakt havolasi (`app-debug`, 22 019 146 bayt):
+  <https://github.com/h73640359-create/bozor-go/actions/runs/39133535192/artifacts/12138522682>
+- Yoki: **GitHub → Actions → "Android" → oxirgi yashil ish → Artifacts → `app-debug`**
+
+Artefakt ZIP ichida `app-debug.apk` fayli bor. Debug paket nomi: `uz.bozorgo.debug`,
+artefakt 2026-11-17 gacha saqlanadi.
 
 **Rasmlar:** 1000 ta mahsulot rasmi, 15 ta kategoriya rasmi va 15 ta kategoriyaga mos zaxira
 rasm APK ichidagi `assets/` dan yuklanadi — internet talab qilmaydi, o'lik havolalar yo'q.
