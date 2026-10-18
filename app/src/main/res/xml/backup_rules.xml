@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foydalanuvchi ma'lumotlarining zaxira nusxasi (Android 11 va undan pasti). -->
+<full-backup-content>
+    <exclude
+        domain="database"
+        path="bozorgo.db" />
+    <exclude
+        domain="sharedpref"
+        path="bozorgo_preferences" />
+</full-backup-content>

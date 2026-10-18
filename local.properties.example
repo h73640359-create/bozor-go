@@ -1,0 +1,15 @@
+# Android SDK yo'li (mahalliy qurilmada to'ldiriladi; git ga kirmaydi)
+sdk.dir=/home/username/Android/Sdk
+
+# Backend manzili. BO'SH QOLDIRILSA — ilova to'liq oflayn rejimda
+# (lokal Room bazasi, 1032 ta mahsulot) ishlaydi.
+# Server ishga tushirilgandan keyin quyidagicha to'ldiring:
+#   Emulyator uchun:  http://10.0.2.2:3000/api/
+#   Telefon uchun:    http://192.168.1.50:3000/api/
+API_BASE_URL=
+
+# Release imzolash (ixtiyoriy; GitHub Secrets orqali ham beriladi)
+KEYSTORE_FILE=
+KEYSTORE_PASSWORD=
+KEY_ALIAS=
+KEY_PASSWORD=

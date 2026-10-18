@@ -1,0 +1,54 @@
+{
+ "banners": [
+  {
+   "id": "bnr-001",
+   "title": "Birinchi buyurtmangizga",
+   "subtitle": "15% chegirma",
+   "image": "banners/bnr-001.webp",
+   "actionType": "category",
+   "actionValue": "fruits-vegetables",
+   "startColor": "#2E7D32",
+   "endColor": "#66BB6A"
+  },
+  {
+   "id": "bnr-002",
+   "title": "Kunlik yangi mahsulotlar",
+   "subtitle": "Har kuni ertalab yetkazib beramiz",
+   "image": "banners/bnr-002.webp",
+   "actionType": "category",
+   "actionValue": "dairy-eggs",
+   "startColor": "#1565C0",
+   "endColor": "#42A5F5"
+  },
+  {
+   "id": "bnr-003",
+   "title": "Uy-ro'zg'or haftaligi",
+   "subtitle": "Tozalash vositalariga -25%",
+   "image": "banners/bnr-003.webp",
+   "actionType": "category",
+   "actionValue": "household-cleaning",
+   "startColor": "#00695C",
+   "endColor": "#26A69A"
+  },
+  {
+   "id": "bnr-004",
+   "title": "Elektronika bo'limi",
+   "subtitle": "Aksessuarlar 2+1",
+   "image": "banners/bnr-004.webp",
+   "actionType": "category",
+   "actionValue": "phones-electronics",
+   "startColor": "#283593",
+   "endColor": "#5C6BC0"
+  },
+  {
+   "id": "bnr-005",
+   "title": "Bolalar dunyosi",
+   "subtitle": "Taglik va ovqatlar to'plami",
+   "image": "banners/bnr-005.webp",
+   "actionType": "category",
+   "actionValue": "baby-products",
+   "startColor": "#AD1457",
+   "endColor": "#F06292"
+  }
+ ]
+}

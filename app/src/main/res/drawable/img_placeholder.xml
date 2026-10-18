@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mahsulot rasmi topilmaganda ko'rsatiladigan placeholder. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96"
+    android:tint="?attr/colorControlNormal">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M76,22 L20,22 C16.7,22 14,24.7 14,28 L14,68 C14,71.3 16.7,74 20,74 L76,74 C79.3,74 82,71.3 82,68 L82,28 C82,24.7 79.3,22 76,22 Z M76,68 L20,68 L20,28 L76,28 L76,68 Z" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M34,44m-7,0a7,7 0,1 1 14,0a7,7 0,1 1 -14,0" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M28,62 L42,50 L54,60 L64,52 L74,62 Z" />
+</vector>

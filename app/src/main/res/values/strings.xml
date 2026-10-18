@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ilova -->
+    <string name="app_name">BozorGo</string>
+    <string name="app_tagline">Online do\'kon</string>
+
+    <!-- Bildirishnomalar -->
+    <string name="channel_orders_name">Buyurtmalar</string>
+    <string name="channel_orders_description">Buyurtma holati haqida bildirishnomalar</string>
+    <string name="channel_promo_name">Aksiyalar</string>
+    <string name="channel_promo_description">Chegirmalar va yangi mahsulotlar</string>
+
+    <!-- Pastki navigatsiya -->
+    <string name="nav_home">Bosh sahifa</string>
+    <string name="nav_catalog">Katalog</string>
+    <string name="nav_cart">Savatcha</string>
+    <string name="nav_orders">Buyurtmalar</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Bosh sahifa -->
+    <string name="home_delivery_to">Yetkazib berish</string>
+    <string name="home_change_address">Manzilni o\'zgartirish</string>
+    <string name="home_search_placeholder">Mahsulot qidirish</string>
+    <string name="home_categories">Kategoriyalar</string>
+    <string name="home_popular">Mashhur mahsulotlar</string>
+    <string name="home_new">Yangi kelganlar</string>
+    <string name="home_deals">Chegirmadagi mahsulotlar</string>
+    <string name="home_daily">Oziq-ovqat va kundalik ehtiyoj</string>
+    <string name="home_recommended">Tavsiya etilgan</string>
+    <string name="home_favorites">Sevimlilar</string>
+    <string name="home_banners">Aksiyalar</string>
+
+    <!-- Umumiy -->
+    <string name="common_ok">Yaxshi</string>
+    <string name="common_cancel">Bekor qilish</string>
+    <string name="common_retry">Qayta urinish</string>
+    <string name="common_loading">Yuklanmoqda…</string>
+    <string name="common_error">Xatolik yuz berdi</string>
+    <string name="common_close">Yopish</string>
+    <string name="common_save">Saqlash</string>
+    <string name="common_delete">O\'chirish</string>
+    <string name="common_edit">Tahrirlash</string>
+    <string name="common_add">Qo\'shish</string>
+    <string name="common_back">Orqaga</string>
+    <string name="common_search">Qidirish</string>
+    <string name="common_all">Barchasi</string>
+    <string name="common_apply">Qo\'llash</string>
+    <string name="common_reset">Tozalash</string>
+    <string name="common_yes">Ha</string>
+    <string name="common_no">Yo\'q</string>
+    <string name="common_continue">Davom etish</string>
+    <string name="common_confirm">Tasdiqlash</string>
+    <string name="common_see_all">Barchasini ko\'rish</string>
+    <string name="common_som">so\'m</string>
+    <string name="common_free">Bepul</string>
+    <string name="common_off">chegirma</string>
+
+    <!-- Mahsulot -->
+    <string name="product_add_to_cart">Savatchaga</string>
+    <string name="product_added_to_cart">Savatchaga qo\'shildi</string>
+    <string name="product_go_to_cart">Savatchaga o\'tish</string>
+    <string name="product_out_of_stock">Mavjud emas</string>
+    <string name="product_left_count">Faqat %1$d dona qoldi</string>
+    <string name="product_description">Tavsif</string>
+    <string name="product_details">Xususiyatlari</string>
+    <string name="product_delivery_info">Yetkazib berish</string>
+    <string name="product_delivery_info_text">Toshkent shahri bo\'ylab buyurtma 100 000 so\'mdan boshlab bepul yetkazib beriladi. Boshqa hududlarga yetkazib berish shartlari operator tomonidan tasdiqlanadi.</string>
+    <string name="product_similar">O\'xshash mahsulotlar</string>
+    <string name="product_reviews">Sharhlar</string>
+    <string name="product_reviews_count">%1$d ta sharh</string>
+    <string name="product_select_option">%1$s tanlang</string>
+    <string name="product_quantity">Miqdor</string>
+    <string name="product_brand">Brend: %1$s</string>
+    <string name="product_sku">ID: %1$s</string>
+    <string name="product_category">Kategoriya: %1$s</string>
+    <string name="product_unit_label">O\'lchov birligi: %1$s</string>
+    <string name="product_in_stock">Omborda mavjud</string>
+    <string name="product_added_to_favorites">Sevimlilarga qo\'shildi</string>
+    <string name="product_removed_from_favorites">Sevimlilardan olib tashlandi</string>
+    <string name="product_demo_reviews">Sharh va reytinglar namunaviy (demo) ma\'lumotdir.</string>
+
+    <!-- Katalog -->
+    <string name="catalog_title">Katalog</string>
+    <string name="catalog_filters">Filtrlar</string>
+    <string name="catalog_sort">Saralash</string>
+    <string name="catalog_sort_popular">Ommaboplik</string>
+    <string name="catalog_sort_price_asc">Avval arzon</string>
+    <string name="catalog_sort_price_desc">Avval qimmat</string>
+    <string name="catalog_sort_name">Nom bo\'yicha</string>
+    <string name="catalog_sort_new">Yangi kelganlar</string>
+    <string name="catalog_sort_discount">Chegirma bo\'yicha</string>
+    <string name="catalog_price_range">Narx oralig\'i</string>
+    <string name="catalog_only_discount">Faqat chegirmadagilar</string>
+    <string name="catalog_in_stock_only">Faqat mavjudlari</string>
+    <string name="catalog_products_count">%1$d ta mahsulot</string>
+    <string name="catalog_empty">Bu bo\'limda mahsulot topilmadi</string>
+    <string name="catalog_load_more">Yana yuklash</string>
+    <string name="catalog_subcategories">Kichik bo\'limlar</string>
+
+    <!-- Qidiruv -->
+    <string name="search_title">Qidiruv</string>
+    <string name="search_hint">Mahsulot yoki kategoriya</string>
+    <string name="search_history">Qidiruv tarixi</string>
+    <string name="search_clear_history">Tarixni tozalash</string>
+    <string name="search_suggestions">Tavsiyalar</string>
+    <string name="search_results_count">%1$d ta natija</string>
+    <string name="search_not_found_title">Hech narsa topilmadi</string>
+    <string name="search_not_found_subtitle">So\'rovni o\'zgartiring yoki quyidagi tavsiyalardan foydalaning</string>
+    <string name="search_popular">Ommabop so\'rovlar</string>
+    <string name="search_empty_history">Hali qidiruv amalga oshirilmagan</string>
+
+    <!-- Savatcha -->
+    <string name="cart_title">Savatcha</string>
+    <string name="cart_empty_title">Savatcha bo\'sh</string>
+    <string name="cart_empty_subtitle">Bosh sahifadan mahsulot tanlang va savatchaga qo\'shing</string>
+    <string name="cart_go_shopping">Xaridni boshlash</string>
+    <string name="cart_items">Mahsulotlar (%1$d)</string>
+    <string name="cart_items_sum">Mahsulotlar</string>
+    <string name="cart_discount">Chegirma</string>
+    <string name="cart_delivery">Yetkazib berish</string>
+    <string name="cart_total">Jami</string>
+    <string name="cart_checkout">Buyurtma berish</string>
+    <string name="cart_remove_item">Savatchadan olib tashlash</string>
+    <string name="cart_clear">Savatchani tozalash</string>
+    <string name="cart_clear_confirm">Savatchani tozalashni tasdiqlaysizmi?</string>
+    <string name="cart_stock_error">«%1$s» uchun omborda yetarli mahsulot yo\'q (mavjud: %2$d)</string>
+    <string name="cart_free_delivery_hint">Bepul yetkazib berish uchun yana %1$s qo\'shing</string>
+
+    <!-- Buyurtma -->
+    <string name="checkout_title">Buyurtma berish</string>
+    <string name="checkout_recipient">Qabul qiluvchi</string>
+    <string name="checkout_name_hint">Ism va familiya</string>
+    <string name="checkout_phone_hint">+998 __ ___ __ __</string>
+    <string name="checkout_address">Yetkazib berish manzili</string>
+    <string name="checkout_add_address">Manzil qo\'shish</string>
+    <string name="checkout_delivery_method">Yetkazib berish usuli</string>
+    <string name="checkout_delivery_standard">Standart (1–2 kun)</string>
+    <string name="checkout_delivery_express">Tezkor (2–4 soat)</string>
+    <string name="checkout_delivery_pickup">Do\'kondan olib ketish</string>
+    <string name="checkout_payment">To\'lov usuli</string>
+    <string name="checkout_pay_cash">Yetkazib berilganda naqd</string>
+    <string name="checkout_pay_card">Bank kartasi orqali</string>
+    <string name="checkout_comment">Buyurtmaga izoh</string>
+    <string name="checkout_comment_hint">Kuryerga qo\'shimcha ma\'lumot</string>
+    <string name="checkout_place_order">Buyurtmani tasdiqlash</string>
+    <string name="checkout_summary">Buyurtma tafsilotlari</string>
+    <string name="checkout_success_title">Buyurtma qabul qilindi</string>
+    <string name="checkout_success_subtitle">Operator tez orada buyurtmangizni tasdiqlaydi</string>
+    <string name="checkout_order_number">Buyurtma raqami</string>
+    <string name="checkout_order_total">Buyurtma summasi</string>
+    <string name="checkout_back_home">Bosh sahifaga</string>
+    <string name="checkout_error_name">Ismni kiriting</string>
+    <string name="checkout_error_phone">Telefon raqamini to\'g\'ri kiriting</string>
+    <string name="checkout_error_address">Manzilni tanlang</string>
+    <string name="checkout_error_server">Buyurtmani serverga yozib bo\'lmadi. Iltimos, keyinroq urinib ko\'ring.</string>
+    <string name="checkout_offline_hint">Server ulanmagan. Buyurtma qurilmangizda saqlanadi va internet paydo bo\'lganda yuboriladi.</string>
+
+    <!-- Buyurtmalar -->
+    <string name="orders_title">Buyurtmalar</string>
+    <string name="orders_empty_title">Buyurtmalar yo\'q</string>
+    <string name="orders_empty_subtitle">Birinchi buyurtmangizni bering va u shu yerda ko\'rinadi</string>
+    <string name="orders_details">Buyurtma tafsilotlari</string>
+    <string name="orders_cancel">Buyurtmani bekor qilish</string>
+    <string name="orders_cancel_confirm">Buyurtmani bekor qilishni tasdiqlaysizmi?</string>
+    <string name="orders_repeat">Buyurtmani takrorlash</string>
+    <string name="orders_items_count">%1$d ta mahsulot</string>
+    <string name="orders_status">Holati</string>
+    <string name="orders_created_at">Rasmiylashtirildi</string>
+    <string name="orders_payment">To\'lov</string>
+    <string name="orders_address">Manzil</string>
+
+    <string name="order_status_created">Buyurtma qabul qilindi</string>
+    <string name="order_status_confirmed">Tasdiqlandi</string>
+    <string name="order_status_preparing">Tayyorlanmoqda</string>
+    <string name="order_status_courier">Kuryerga topshirildi</string>
+    <string name="order_status_delivering">Yetkazib berilmoqda</string>
+    <string name="order_status_delivered">Yetkazib berildi</string>
+    <string name="order_status_cancelled">Bekor qilindi</string>
+
+    <!-- Profil -->
+    <string name="profile_title">Profil</string>
+    <string name="profile_guest">Mehmon</string>
+    <string name="profile_guest_hint">Buyurtma berish uchun tizimga kiring</string>
+    <string name="profile_login">Tizimga kirish</string>
+    <string name="profile_register">Ro\'yxatdan o\'tish</string>
+    <string name="profile_logout">Tizimdan chiqish</string>
+    <string name="profile_logout_confirm">Tizimdan chiqishni tasdiqlaysizmi?</string>
+    <string name="profile_orders">Buyurtmalar tarixi</string>
+    <string name="profile_addresses">Saqlangan manzillar</string>
+    <string name="profile_favorites">Sevimli mahsulotlar</string>
+    <string name="profile_notifications">Bildirishnomalar</string>
+    <string name="profile_help">Yordam</string>
+    <string name="profile_privacy">Maxfiylik siyosati</string>
+    <string name="profile_terms">Foydalanish shartlari</string>
+    <string name="profile_language">Til</string>
+    <string name="profile_about">Ilova haqida</string>
+    <string name="profile_version">Versiya %1$s (%2$d)</string>
+    <string name="profile_edit">Profilni tahrirlash</string>
+    <string name="profile_demo_notice">Bu demo ilova: narxlar, brendlar va reytinglar namunaviy ma\'lumotdir.</string>
+
+    <!-- Autentifikatsiya -->
+    <string name="auth_title">Telefon raqami orqali kirish</string>
+    <string name="auth_phone_label">Telefon raqami</string>
+    <string name="auth_code_label">Tasdiqlash kodi</string>
+    <string name="auth_send_code">Kodni yuborish</string>
+    <string name="auth_verify">Tasdiqlash</string>
+    <string name="auth_code_sent">Tasdiqlash kodi yuborildi (demo rejim: istalgan 6 xonali kod)</string>
+    <string name="auth_demo_warning">Haqiqiy SMS provayderi ulanmagan. Tasdiqlash demo rejimda ishlaydi — istalgan 6 xonali kod qabul qilinadi.</string>
+    <string name="auth_error_phone">Raqamni to\'g\'ri kiriting (+998XXXXXXXXX)</string>
+    <string name="auth_error_code">Kod 6 xonali bo\'lishi kerak</string>
+
+    <!-- Manzillar -->
+    <string name="address_title">Manzillar</string>
+    <string name="address_add">Yangi manzil</string>
+    <string name="address_label">Manzil nomi (masalan, Uy)</string>
+    <string name="address_city">Shahar</string>
+    <string name="address_district">Tuman</string>
+    <string name="address_street">Ko\'cha</string>
+    <string name="address_house">Uy raqami</string>
+    <string name="address_apartment">Xonadon</string>
+    <string name="address_comment">Izoh</string>
+    <string name="address_set_default">Asosiy manzil</string>
+    <string name="address_empty">Manzillar qo\'shilmagan</string>
+    <string name="address_delete_confirm">Manzilni o\'chirishni tasdiqlaysizmi?</string>
+    <string name="address_default_badge">Asosiy</string>
+
+    <!-- Sevimlilar -->
+    <string name="favorites_title">Sevimlilar</string>
+    <string name="favorites_empty_title">Sevimlilar bo\'sh</string>
+    <string name="favorites_empty_subtitle">Mahsulot kartochkasidagi yurakcha belgisini bosing</string>
+
+    <!-- Xatolar -->
+    <string name="error_network_title">Internet aloqasi yo\'q</string>
+    <string name="error_network_text">Ilova lokal bazadagi ma\'lumotlar bilan ishlashda davom etadi.</string>
+    <string name="error_server_title">Server bilan bog\'lanib bo\'lmadi</string>
+    <string name="error_server_text">Server manzili sozlanmagan yoki javob bermadi. Barcha ma\'lumotlar qurilmada saqlanadi.</string>
+    <string name="error_unknown">Noma\'lum xatolik. Iltimos, qayta urinib ko\'ring.</string>
+    <string name="error_empty_title">Ma\'lumot topilmadi</string>
+    <string name="error_retry">Qayta urinish</string>
+
+    <!-- Demo -->
+    <string name="demo_badge">DEMO</string>
+    <string name="demo_notice">Namunaviy (demo) ma\'lumotlar. Real do\'kon narxlari emas.</string>
+
+    <!-- Yordam -->
+    <string name="help_title">Yordam</string>
+    <string name="help_faq_title">Ko\'p beriladigan savollar</string>
+    <string name="help_faq_1_title">Buyurtmani qanday beraman?</string>
+    <string name="help_faq_1_text">Savatchaga mahsulot qo\'shing, «Buyurtma berish» tugmasini bosing, ma\'lumotlaringizni kiriting va buyurtmani tasdiqlang.</string>
+    <string name="help_faq_2_title">Yetkazib berish qancha turadi?</string>
+    <string name="help_faq_2_text">100 000 so\'mdan yuqori buyurtmalar uchun yetkazib berish bepul, undan past bo\'lsa 15 000 so\'m.</string>
+    <string name="help_faq_3_title">To\'lov usullari qanday?</string>
+    <string name="help_faq_3_text">Haqiqiy to\'lov provayderi ulanmagani uchun karta orqali to\'lov demo rejimida ishlaydi va haqiqiy pul o\'tkazmaydi.</string>
+    <string name="help_contact_title">Aloqa</string>
+    <string name="help_contact_text">Savollaringiz bo\'lsa: support@bozorgo.example (misol manzil — real pochta emas).</string>
+
+    <!-- Maxfiylik va shartlar -->
+    <string name="privacy_title">Maxfiylik siyosati</string>
+    <string name="privacy_text">BozorGo foydalanuvchi ma\'lumotlarini faqat buyurtmalarni yetkazib berish uchun ishlatadi. Telefon raqami va manzil qurilmada va (agar server ulangan bo\'lsa) serverda saqlanadi. Ma\'lumotlar uchinchi shaxslarga sotilmaydi. Bu demo ilova bo\'lib, real to\'lov ma\'lumotlarini qabul qilmaydi va saqlamaydi.</string>
+    <string name="terms_title">Foydalanish shartlari</string>
+    <string name="terms_text">BozorGo demo loyihasi. Katalogdagi mahsulotlar, narxlar, brendlar, reytinglar va sharhlar namunaviy ma\'lumot bo\'lib, real savdo taklifi emas. Ilovadan foydalanish orqali siz ushbu shartlarga rozilik bildirasiz.</string>
+
+    <!-- Yordam / Maxfiylik / Shartlar ekrani -->
+    <string name="info_help_title">Yordam</string>
+    <string name="info_help_body">BozorGo — namunaviy (demo) onlayn do'kon ilovasi. Katalogdagi barcha mahsulotlar, narxlar, chegirmalar va reytinglar sinov ma'lumoti hisoblanadi.
+
+1. Buyurtma qanday beriladi?
+Savatchaga mahsulot qo'shing, «Buyurtma berish» tugmasini bosing, yetkazib berish manzili va to'lov usulini tanlang, so'ng buyurtmani tasdiqlang. Tasdiqlangan buyurtmaga tartib raqami beriladi va «Buyurtmalar» bo'limida saqlanadi.
+
+2. Yetkazib berish narxi
+Standart yetkazib berish 15 000 so'm. 100 000 so'mdan yuqori buyurtmalar uchun bepul. Tezkor yetkazib berish 25 000 so'm, olib ketish (pickup) bepul. Bu qiymatlar demo hisoblanadi.
+
+3. To'lov usullari
+Naqd (kuryerga) va karta orqali. Haqiqiy to'lov provayderi ulanmagani uchun karta to'lovi demo rejimida ishlaydi va haqiqiy pul o'tkazmaydi.
+
+4. Internet bo'lmasa
+Mahsulotlar qurilmadagi bazada saqlanadi, shuning uchun katalog, qidiruv va savatcha oflayn ishlaydi. Server ulanganda buyurtmalar sinxronlanadi.
+
+5. Aloqa
+support@bozorgo.example — namunaviy manzil, real pochta emas.</string>
+    <string name="info_privacy_title">Maxfiylik siyosati</string>
+    <string name="info_privacy_body">BozorGo foydalanuvchi ma'lumotlarini faqat buyurtmalarni rasmiylashtirish va yetkazib berish uchun ishlatadi.
+
+Saqlanadigan ma'lumotlar: ism, telefon raqami, yetkazib berish manzillari, savatcha va buyurtmalar tarixi, sevimli mahsulotlar. Ular qurilmada (Room bazasi va DataStore) saqlanadi; server ulangan bo'lsa, buyurtmalar serverga ham yuboriladi.
+
+To'lov ma'lumotlari ilovada saqlanmaydi: karta orqali to'lov demo rejimida bo'lib, haqiqiy pul o'tkazmaydi va karta ma'lumotlari so'ralmaydi.
+
+Ma'lumotlar uchinchi shaxslarga berilmaydi va sotilmaydi. Ilova o'chirib tashlansa, qurilmadagi ma'lumotlar ham o'chadi.
+
+Bu demo loyiha bo'lgani uchun real shaxsiy ma'lumotlarni kiritmaslik tavsiya etiladi.</string>
+    <string name="info_terms_title">Foydalanish shartlari</string>
+    <string name="info_terms_body">BozorGo — ochiq namunaviy (demo) loyiha. Ilovadan foydalanish orqali quyidagilarga rozilik bildirasiz:
+
+1. Katalogdagi mahsulotlar, brendlar, tavsiflar, narxlar, chegirmalar, reytinglar va sharhlar namunaviy ma'lumot bo'lib, real savdo taklifi emas.
+2. Buyurtma berish real shartnoma tuzmaydi va tovar yetkazib berilishi majburiyatini yaratmaydi.
+3. To'lov demo rejimida: haqiqiy pul o'tkazmalari amalga oshirilmaydi.
+4. Server manzili (API_BASE_URL) sozlanmaganda ilova to'liq oflayn ishlaydi.
+5. Ilova «boricha» taqdim etiladi; mualliflar demo ma'lumotlarning to'g'riligi uchun javob bermaydi.</string>
+    <string name="info_last_updated">Matn demo versiya (1.0.0) uchun tayyorlangan.</string>
+
+    <!-- Buyurtma muvaffaqiyatli rasmiylashtirildi -->
+    <string name="order_success_title">Buyurtma qabul qilindi</string>
+    <string name="order_success_subtitle">Buyurtmangiz saqlandi. Holatini «Buyurtmalar» bo'limida kuzatishingiz mumkin.</string>
+    <string name="order_success_number">Buyurtma raqami</string>
+    <string name="order_success_total">Jami</string>
+    <string name="order_success_track">Buyurtmani kuzatish</string>
+    <string name="order_success_home">Bosh sahifa</string>
+
+    <!-- Profilni tahrirlash -->
+    <string name="profile_saved">Ma'lumotlar saqlandi</string>
+    <string name="profile_edit_hint">Ism va telefon raqami faqat ushbu qurilmada saqlanadi.</string>
+
+    <!-- Sozlamalar -->
+    <string name="settings_title">Sozlamalar</string>
+    <string name="settings_language">Til</string>
+    <string name="settings_language_system">Tizim tili</string>
+    <string name="settings_language_restart">Til o'zgartirildi — o'zgarish darhol qo'llanadi</string>
+    <string name="settings_theme">Mavzu</string>
+    <string name="settings_theme_system">Tizim mavzusi</string>
+    <string name="settings_theme_light">Yorug'</string>
+    <string name="settings_theme_dark">Qorong'i</string>
+    <string name="settings_data">Ma'lumotlar</string>
+    <string name="settings_clear_history">Qidiruv tarixini tozalash</string>
+    <string name="settings_history_cleared">Qidiruv tarixi tozalandi</string>
+    <string name="settings_clear_cache">Rasm keshini tozalash</string>
+    <string name="settings_clear_cache_confirm">Yuklab olingan rasmlar keshini o'chirishni xohlaysizmi? Ular internet borida qayta yuklanadi.</string>
+    <string name="settings_reseed">Katalogni qayta yuklash</string>
+    <string name="settings_reseed_hint">Bazada: %1$d ta mahsulot</string>
+    <string name="settings_about_title">Ilova haqida</string>
+    <string name="settings_version">Versiya</string>
+    <string name="settings_products">Mahsulotlar</string>
+    <string name="settings_server">Server</string>
+    <string name="settings_server_connected">Ulangan</string>
+    <string name="settings_server_offline">Oflayn rejim (server sozlanmagan)</string>
+</resources>

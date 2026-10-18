@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BozorGo brend ranglari -->
+    <color name="brand_green">#FF16B76A</color>
+    <color name="brand_green_dark">#FF088550</color>
+    <color name="brand_orange">#FFFF8A00</color>
+    <color name="brand_orange_dark">#FFE07A00</color>
+    <color name="splash_background">#FF16B76A</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

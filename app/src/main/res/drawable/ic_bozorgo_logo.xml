@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BozorGo logotip belgisi (savatcha). Ilova ichida ishlatiladi. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,74 L156,74 A16,16 0 0 1 172,90 L172,162 A16,16 0 0 1 156,178 L44,178 A16,16 0 0 1 28,162 L28,90 A16,16 0 0 1 44,74 Z" />
+
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M66,118 A34,40 0 0 1 134,118"
+        android:strokeWidth="16"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
+
+    <path
+        android:fillColor="#16B76A"
+        android:pathData="M78,108 L122,108 A10,10 0 0 1 132,118 L132,146 A10,10 0 0 1 122,156 L78,156 A10,10 0 0 1 68,146 L68,118 A10,10 0 0 1 78,108 Z" />
+
+    <path
+        android:fillColor="#FF8A00"
+        android:pathData="M116,100 L150,116 L122,140 L108,124 Z" />
+
+</vector>

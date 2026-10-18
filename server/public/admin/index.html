@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BozorGo — Admin panel</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="login" class="login">
+    <form id="login-form" class="card login-card">
+      <h1>BozorGo Admin</h1>
+      <p class="muted">Faqat admin huquqi bor foydalanuvchilar kira oladi.</p>
+      <label>Email
+        <input id="login-email" type="email" autocomplete="username" required />
+      </label>
+      <label>Parol
+        <input id="login-password" type="password" autocomplete="current-password" required />
+      </label>
+      <button class="primary" type="submit">Kirish</button>
+      <p id="login-error" class="error"></p>
+    </form>
+  </div>
+
+  <div id="app" hidden>
+    <header class="topbar">
+      <strong>BozorGo</strong>
+      <nav>
+        <button data-tab="dashboard" class="tab active">Boshqaruv</button>
+        <button data-tab="products" class="tab">Mahsulotlar</button>
+        <button data-tab="categories" class="tab">Kategoriyalar</button>
+        <button data-tab="banners" class="tab">Bannerlar</button>
+        <button data-tab="orders" class="tab">Buyurtmalar</button>
+        <button data-tab="customers" class="tab">Mijozlar</button>
+      </nav>
+      <button id="logout" class="ghost">Chiqish</button>
+    </header>
+
+    <main class="content">
+      <section id="tab-dashboard" class="tab-panel">
+        <div id="stats" class="cards"></div>
+        <div class="card">
+          <h2>Kam qolgan mahsulotlar</h2>
+          <table id="low-stock"><tbody></tbody></table>
+        </div>
+      </section>
+
+      <section id="tab-products" class="tab-panel" hidden>
+        <div class="toolbar">
+          <input id="product-search" placeholder="Qidiruv: nom, brend yoki ID" />
+          <button id="product-new" class="primary">Yangi mahsulot</button>
+        </div>
+        <div class="card">
+          <table id="products-table">
+            <thead>
+              <tr><th>ID</th><th>Nom</th><th>Kategoriya</th><th>Narx</th><th>Chegirma</th><th>Ombor</th><th></th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="pager">
+            <button id="products-prev" class="ghost">← Oldingi</button>
+            <span id="products-info" class="muted"></span>
+            <button id="products-next" class="ghost">Keyingi →</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-categories" class="tab-panel" hidden>
+        <div class="toolbar"><button id="category-new" class="primary">Yangi kategoriya</button></div>
+        <div class="card"><table id="categories-table">
+          <thead><tr><th>ID</th><th>Nom</th><th>Kichik bo'limlar</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </section>
+
+      <section id="tab-banners" class="tab-panel" hidden>
+        <div class="toolbar"><button id="banner-new" class="primary">Yangi banner</button></div>
+        <div class="card"><table id="banners-table">
+          <thead><tr><th>ID</th><th>Sarlavha</th><th>Amaliyot</th><th>Faol</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </section>
+
+      <section id="tab-orders" class="tab-panel" hidden>
+        <div class="toolbar">
+          <select id="order-status-filter">
+            <option value="">Barcha holatlar</option>
+            <option value="created">Yaratilgan</option>
+            <option value="confirmed">Tasdiqlangan</option>
+            <option value="preparing">Tayyorlanmoqda</option>
+            <option value="courier">Kuryerga berildi</option>
+            <option value="delivering">Yetkazilmoqda</option>
+            <option value="delivered">Yetkazildi</option>
+            <option value="cancelled">Bekor qilingan</option>
+          </select>
+        </div>
+        <div class="card"><table id="orders-table">
+          <thead><tr><th>Raqam</th><th>Sana</th><th>Mijoz</th><th>Summa</th><th>To'lov</th><th>Holat</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </section>
+
+      <section id="tab-customers" class="tab-panel" hidden>
+        <div class="card"><table id="customers-table">
+          <thead><tr><th>Ism</th><th>Telefon</th><th>Buyurtmalar</th><th>Jami xarid</th><th>Ro'yxatdan o'tgan</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-body card">
+      <h2 id="modal-title">Tahrirlash</h2>
+      <div id="modal-fields"></div>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="ghost">Bekor qilish</button>
+        <button id="modal-save" class="primary">Saqlash</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
