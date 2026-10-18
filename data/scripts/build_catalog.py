@@ -182,6 +182,9 @@ def build() -> dict:
             per_subcategory[subcategory_id] = per_subcategory.get(subcategory_id, 0) + 1
             per_category[category_id] = per_category.get(category_id, 0) + 1
 
+    photo_covered, photo_subcategories = apply_photos(products)
+    print(f"Foto rasmlar   : {photo_covered} ta mahsulot / {photo_subcategories} ta kichik bo'lim")
+
     if errors:
         print("XATOLAR:", file=sys.stderr)
         for e in errors:
@@ -285,6 +288,48 @@ def build() -> dict:
     }
 
     return {"catalog": catalog, "categories": categories, "banners": banners}
+
+
+def load_photo_map() -> dict:
+    """Kichik bo'lim -> mavjud foto rasmlar ro'yxati.
+
+    Foto fayllar `data/images/products/<kichik-bo'lim>__<variant>.webp`
+    shaklida bo'ladi (build_photos.py ularni shu yerga yozadi).
+    """
+    photo_dir = DATA_DIR / "images" / "products"
+    photos: dict = {}
+    if not photo_dir.is_dir():
+        return photos
+    for path in sorted(photo_dir.glob("*.webp")):
+        stem = path.stem
+        if "__" not in stem:
+            continue
+        subcategory_id = stem.rsplit("__", 1)[0]
+        photos.setdefault(subcategory_id, []).append(f"products/{path.name}")
+    return photos
+
+
+def apply_photos(products: list) -> tuple:
+    """Har bir mahsulotga o'z kichik bo'limining fotosini biriktiradi.
+
+    Bir kichik bo'limda bir nechta variant bo'lsa, mahsulotlar ularga
+    navbatma-navbat taqsimlanadi (bitta rasm yuzlab mahsulotda takrorlanmaydi).
+    Foto yo'q bo'lsa — chizma illustratsiya saqlanadi.
+    """
+    photo_map = load_photo_map()
+    if not photo_map:
+        return 0, 0
+    counters: dict = {}
+    covered = 0
+    for product in products:
+        variants = photo_map.get(product["subcategoryId"])
+        if not variants:
+            continue
+        index = counters.get(product["subcategoryId"], 0)
+        product["image"] = variants[index % len(variants)]
+        counters[product["subcategoryId"]] = index + 1
+        covered += 1
+    return covered, len(counters)
 
 
 def main() -> None:

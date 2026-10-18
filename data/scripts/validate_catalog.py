@@ -174,13 +174,19 @@ def main() -> int:
         ]
         c.check(not missing, f"Rasm fayllari topilmadi ({len(missing)} ta), masalan: {missing[:5]}")
 
-        # 7.1 Rasm nomi mahsulot identifikatoriga mos (nom bo'yicha taxmin emas)
-        mismatched = [
-            f"{p['id']} -> {p['image']}"
-            for p in products
-            if p["image"] != f"products/{p['id']}.webp"
-        ]
-        c.check(not mismatched, f"Rasm nomi ID ga mos emas ({len(mismatched)} ta): {mismatched[:5]}")
+        # 7.1 Rasm mahsulot ID si yoki kichik bo'lim fotosiga bog'langan
+        #     (nom bo'yicha taxmin qilinmaydi)
+        def image_ok(item: dict) -> bool:
+            image = item["image"]
+            if image == f"products/{item['id']}.webp":
+                return True  # chizma illustratsiya
+            return image.startswith(f"products/{item['subcategoryId']}__") and image.endswith(".webp")
+
+        mismatched = [f"{p['id']} -> {p['image']}" for p in products if not image_ok(p)]
+        c.check(not mismatched, f"Rasm nomi ID/kichik bo'limga mos emas ({len(mismatched)} ta): {mismatched[:5]}")
+
+        photo_count = sum(1 for p in products if "__" in p["image"])
+        print(f"Foto rasmlar     : {photo_count} ta mahsulot (qolgan {len(products) - photo_count} tasi chizma)")
 
         # 7.2 Format va hajm
         broken = []
@@ -204,7 +210,9 @@ def main() -> int:
                 continue
             digest = hashlib.md5(path.read_bytes()).hexdigest()
             by_hash.setdefault(digest, []).append(p["id"])
-        max_shared = 5
+        # Foto rasmlar bir kichik bo'lim ichida bo'lishiladi (o'nlab mahsulotda),
+        # lekin yuzlab mahsulotda emas va boshqa kichik bo'limga o'tmaydi.
+        max_shared = 45
         too_many = [ids for ids in by_hash.values() if len(ids) > max_shared]
         c.check(
             not too_many,
@@ -219,6 +227,8 @@ def main() -> int:
             not cross,
             f"Bir rasm turli kichik bo'limlarda ishlatilgan: {cross[:3]}",
         )
+        largest_group = max(len(ids) for ids in by_hash.values())
+        print(f"Bitta rasm       : eng ko'pi {largest_group} ta mahsulotda (chegara {max_shared})")
 
         # 7.4 Kategoriya rasmlari va zaxira rasmlar
         missing_card = [

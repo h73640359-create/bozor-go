@@ -59,12 +59,12 @@ jobs:
           set -o pipefail
           ./gradlew assembleDebug --stacktrace 2>&1 | tee assemble-debug.log
 
-      # APK ichida rasmlar haqiqatan borligini tekshirish (rasm fayl kiritilmay
-      # qolgan bo'lsa — yig'ish muvaffaqiyatsiz tugaydi, jim o'tib ketmaydi).
+      # APK ichida rasmlar haqiqatan borligini tekshirish: katalogdagi har bir
+      # mahsulotning rasm fayli APK ichida bo'lishi shart (jim o'tib ketmaydi).
       - name: APK ichidagi rasmlarni tekshirish
         run: |
           python3 - <<'PY'
-          import sys, zipfile
+          import json, sys, zipfile
 
           APK = "app/build/outputs/apk/debug/app-debug.apk"
           try:
@@ -73,45 +73,35 @@ jobs:
               print("::error::APK topilmadi: " + APK)
               sys.exit(1)
 
-          names = z.namelist()
-          groups = {
-              "Mahsulot rasmlari": "assets/products/",
-              "Kategoriya rasmlari": "assets/categories/",
-              "Zaxira rasmlar": "assets/fallback/",
-              "Banner rasmlari": "assets/banners/",
-          }
-          minimum = {
-              "Mahsulot rasmlari": 1000,
-              "Kategoriya rasmlari": 15,
-              "Zaxira rasmlar": 15,
-              "Banner rasmlari": 5,
-          }
+          names = set(z.namelist())
+          seed = json.loads(z.read("assets/seed/catalog.json"))
+          products = seed["products"]
 
-          total_bytes = 0
+          referenced = sorted({p["image"] for p in products if p.get("image")})
+          missing = [path for path in referenced if path not in names]
+          photos = [path for path in referenced if "__" in path]
+          drawings = [path for path in referenced if "__" not in path]
+
+          image_bytes = sum(z.getinfo(p).file_size for p in referenced if p in names)
+          apk_bytes = sum(i.file_size for i in z.infolist())
+
+          print(f"Mahsulotlar         : {len(products)}")
+          print(f"Foto rasmlar        : {len(photos)} ta (kichik bo'limlar bo'yicha)")
+          print(f"Chizma illustratsiya: {len(drawings)} ta")
+          print(f"Rasmlar hajmi       : {image_bytes / 1024 / 1024:.2f} MB")
+          print(f"APK hajmi           : {apk_bytes / 1024 / 1024:.1f} MB")
+
           problems = []
-          for label, prefix in groups.items():
-              files = [
-                  n for n in names
-                  if n.startswith(prefix) and n.lower().endswith(".webp")
-              ]
-              size = sum(z.getinfo(n).file_size for n in files)
-              total_bytes += size
-              print(f"{label}: {len(files)} ta ({size / 1024 / 1024:.2f} MB)")
-              if len(files) < minimum[label]:
-                  problems.append(
-                      f"{label}: kutilgan >= {minimum[label]}, topildi {len(files)}"
-                  )
-              empty = [n for n in files if z.getinfo(n).file_size < 500]
-              if empty:
-                  problems.append(f"{label}: bo'sh/juda kichik fayllar: {empty[:3]}")
-
-          for seed in ("assets/seed/catalog.json", "assets/seed/categories.json"):
-              if seed not in names:
-                  problems.append(f"APK ichida seed fayli yo'q: {seed}")
-
-          apk_bytes = sum(info.file_size for info in z.infolist())
-          print(f"APK hajmi: {apk_bytes / 1024 / 1024:.1f} MB")
-          print(f"Rasmlar jami: {total_bytes / 1024 / 1024:.2f} MB")
+          if missing:
+              problems.append(f"APK ichida {len(missing)} ta rasm yo'q, masalan: {missing[:5]}")
+          if not referenced:
+              problems.append("Katalogda hech qanday rasm ko'rsatilmagan")
+          for path in referenced:
+              if path in names and z.getinfo(path).file_size < 500:
+                  problems.append(f"Bo'sh/juda kichik rasm: {path}")
+          for seed_file in ("assets/seed/catalog.json", "assets/seed/categories.json"):
+              if seed_file not in names:
+                  problems.append(f"APK ichida seed fayli yo'q: {seed_file}")
 
           for problem in problems:
               print("::error::" + problem)

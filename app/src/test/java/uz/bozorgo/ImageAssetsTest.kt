@@ -28,8 +28,11 @@ class ImageAssetsTest {
 
     private val gson = Gson()
 
-    /** Bir rasm bilan bo'lishilishi mumkin bo'lgan eng ko'p mahsulot soni. */
+    /** Bir chizma rasm bilan bo'lishilishi mumkin bo'lgan eng ko'p mahsulot soni. */
     private val maxSharedImage = 5
+
+    /** Bir foto bilan bo'lishilishi mumkin bo'lgan eng ko'p mahsulot soni. */
+    private val maxSharedPhoto = 45
 
     private val catalog: JsonObject by lazy {
         gson.fromJson(TestFiles.seed("catalog.json").readText(), JsonObject::class.java)
@@ -87,15 +90,37 @@ class ImageAssetsTest {
     }
 
     @Test
-    fun imageFileNamesMatchProductIds() {
+    fun imageFileNamesMatchProductOrSubcategory() {
+        // Rasm yo mahsulot ID siga (chizma illustratsiya), yo kichik bo'lim
+        // fotosiga bog'langan — nom bo'yicha taxmin qilinmaydi.
         val mismatched = products.mapNotNull { product ->
             val id = product["id"].asString
+            val subcategory = product["subcategoryId"].asString
             val image = product["image"]?.asString.orEmpty()
-            if (image == "products/$id.webp") null else "$id -> $image"
+            val ok = image == "products/$id.webp" ||
+                (image.startsWith("products/${subcategory}__") && image.endsWith(".webp"))
+            if (ok) null else "$id -> $image"
         }
         assertWithMessage(
-            "Rasm nomi mahsulot ID siga mos kelmagan (${mismatched.size} ta): ${mismatched.take(10)}",
+            "Rasm nomi mahsulot ID si/kichik bo'limiga mos kelmagan " +
+                "(${mismatched.size} ta): ${mismatched.take(10)}",
         ).that(mismatched).isEmpty()
+    }
+
+    @Test
+    fun photoImagesExistAndAreWebp() {
+        val photos = products.map { it["image"]?.asString.orEmpty() }.filter { "__" in it }.toSet()
+        val broken = photos.mapNotNull { path ->
+            val file = TestFiles.assetImage(path)
+            if (file == null) "$path (fayl yo'q)"
+            else if (!isWebp(file)) "$path (WebP emas)"
+            else if (file.length() < 2000) "$path (juda kichik: ${file.length()} bayt)"
+            else null
+        }
+        assertWithMessage("Foto rasmlarda muammo: ${broken.take(10)}").that(broken).isEmpty()
+        // Katalogda foto rasmlar bo'lishi kerak (kamida bir nechta kichik bo'lim uchun)
+        assertWithMessage("Kamida 5 ta kichik bo'lim uchun foto rasm bo'lishi kerak")
+            .that(photos.size).isAtLeast(5)
     }
 
     @Test
@@ -125,6 +150,16 @@ class ImageAssetsTest {
             "Bir xil rasm $maxSharedImage dan ortiq mahsulotda ishlatilgan: " +
                 tooMany.values.take(5),
         ).that(tooMany).isEmpty()
+
+        // Foto rasmlar bir kichik bo'lim ichida bo'lishilishi mumkin.
+        val photoGroups = byHash.values.filter { ids ->
+            val first = products.first { it["id"].asString == ids.first() }
+            "__" in first["image"].asString
+        }
+        val photoTooMany = photoGroups.filter { it.size > maxSharedPhoto }
+        assertWithMessage(
+            "Bir foto $maxSharedPhoto dan ortiq mahsulotda ishlatilgan: ${photoTooMany.take(3)}",
+        ).that(photoTooMany).isEmpty()
 
         // Rasm bo'lishilganda ham faqat bitta kichik bo'lim ichida bo'lishi kerak.
         val crossSubcategory = byHash.filter { (_, ids) ->
