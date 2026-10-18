@@ -57,10 +57,10 @@ class CatalogViewModel @Inject constructor(
     private val cartRepository: CartRepository,
 ) : ViewModel() {
 
-    private val categoryId: String? = savedStateHandle["categoryId"]
-    private val subcategoryId: String? = savedStateHandle["subcategoryId"]
-    private val collectionType: String? = savedStateHandle["type"]
-    private val initialQuery: String = savedStateHandle["query"].orEmpty()
+    private val categoryId: String? = savedStateHandle.get<String>("categoryId")
+    private val subcategoryId: String? = savedStateHandle.get<String>("subcategoryId")
+    private val collectionType: String? = savedStateHandle.get<String>("type")
+    private val initialQuery: String = savedStateHandle.get<String>("query").orEmpty()
 
     private val _isLoading = MutableStateFlow(true)
     private val _error = MutableStateFlow<String?>(null)

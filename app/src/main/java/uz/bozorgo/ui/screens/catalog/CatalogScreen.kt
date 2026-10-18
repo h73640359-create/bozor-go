@@ -411,7 +411,7 @@ private fun FilterSheetContent(
     val range = state.priceRange
     var sliderValues by remember(state.filter.minPrice, state.filter.maxPrice, range) {
         mutableStateOf(
-            (state.filter.minPrice ?: range.first)..(state.filter.maxPrice ?: range.second),
+            (state.filter.minPrice ?: range.start)..(state.filter.maxPrice ?: range.endInclusive),
         )
     }
 
@@ -441,7 +441,7 @@ private fun FilterSheetContent(
         RangeSlider(
             value = sliderValues,
             onValueChange = { sliderValues = it },
-            valueRange = range.first..range.second,
+            valueRange = range.start..range.endInclusive,
             onValueChangeFinished = {
                 onPriceRangeChange(sliderValues.start, sliderValues.endInclusive)
             },

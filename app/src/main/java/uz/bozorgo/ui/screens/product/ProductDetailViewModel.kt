@@ -36,7 +36,7 @@ class ProductDetailViewModel @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
 ) : ViewModel() {
 
-    private val productId: String = savedStateHandle["productId"] ?: ""
+    private val productId: String = savedStateHandle.get<String>("productId") ?: ""
 
     private val _quantity = MutableStateFlow(1)
     private val _selectedOption = MutableStateFlow<String?>(null)

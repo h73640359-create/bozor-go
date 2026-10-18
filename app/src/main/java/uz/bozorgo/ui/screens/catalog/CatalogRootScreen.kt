@@ -65,10 +65,11 @@ fun CatalogRootRoute(
             }
         }
 
+        val error = state.error
         when {
             state.isLoading && state.categories.isEmpty() -> LoadingState()
-            state.error != null && state.categories.isEmpty() -> ErrorState(
-                message = state.error,
+            error != null && state.categories.isEmpty() -> ErrorState(
+                message = error,
                 onRetry = viewModel::refresh,
             )
 

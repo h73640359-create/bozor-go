@@ -26,7 +26,10 @@ object ProductQueryBuilder {
             append(orderBy(filter.sort))
             append(" LIMIT ? OFFSET ?")
         }
-        val args = where.args + arrayOf<Any?>(limit, offset)
+        val args = where.args.toMutableList().apply {
+            add(limit)
+            add(offset)
+        }.toTypedArray()
         return SimpleSQLiteQuery(sql, args)
     }
 

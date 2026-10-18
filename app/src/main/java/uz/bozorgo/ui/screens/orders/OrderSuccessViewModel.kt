@@ -22,7 +22,7 @@ class OrderSuccessViewModel @Inject constructor(
     orderRepository: OrderRepository,
 ) : ViewModel() {
 
-    private val orderId: String = savedStateHandle["orderId"] ?: ""
+    private val orderId: String = savedStateHandle.get<String>("orderId") ?: ""
 
     val uiState: StateFlow<OrderSuccessUiState> = orderRepository.observeOrder(orderId)
         .map { OrderSuccessUiState(order = it) }

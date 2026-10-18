@@ -28,7 +28,7 @@ class OrderDetailViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
 ) : ViewModel() {
 
-    private val orderId: String = savedStateHandle["orderId"] ?: ""
+    private val orderId: String = savedStateHandle.get<String>("orderId") ?: ""
 
     private val order = orderRepository.observeOrder(orderId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
