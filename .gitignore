@@ -16,7 +16,6 @@ out/
 captures/
 .externalNativeBuild/
 .cxx/
-navigation/
 *.log
 
 # Build natijalari
@@ -30,11 +29,13 @@ app/build/
 *.keystore
 !debug.keystore
 
-# Mahalliy sozlamalar va sirlar
+# Mahalliy sozlamalar va sirlar (namuna fayllardan tashqari)
 local.properties
 .env
 .env.*
 server/.env
+!server/.env.example
+!local.properties.example
 
 # OS
 .DS_Store
