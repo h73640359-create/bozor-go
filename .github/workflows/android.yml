@@ -59,23 +59,27 @@ jobs:
           set -o pipefail
           ./gradlew assembleDebug --stacktrace 2>&1 | tee assemble-debug.log
 
-      # Muvaffaqiyatsiz yig'ish jurnalini shu branchga yozib qo'yamiz
-      # (GitHub Actions loglarini tashqaridan o'qib bo'lmaganda tashxis uchun).
-      - name: Yig'ish jurnalini saqlash
+      # Muvaffaqiyatsiz yig'ish xatolarini annotatsiya sifatida chiqarish
+      # (Actions jurnallari tashqaridan o'qilmagani uchun).
+      - name: Xatoliklarni annotatsiya qilish
         if: failure()
         run: |
-          mkdir -p ci-logs
-          [ -f unit-tests.log ] && cp unit-tests.log ci-logs/unit-tests.log || true
-          [ -f assemble-debug.log ] && cp assemble-debug.log ci-logs/assemble-debug.log || true
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ci-logs
-          if git diff --cached --quiet; then
-            echo "Jurnal o'zgarmagan"
-          else
-            git commit -m "CI: yig'ish jurnali (run $GITHUB_RUN_NUMBER)"
-            git push origin HEAD:"${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
-          fi
+          python3 - <<'PY'
+          import pathlib, re
+          patterns = re.compile(r'^(e: |> Task .*FAILED|.*Unresolved reference.*|.*: error:.*)', re.I)
+          for name in ("unit-tests.log", "assemble-debug.log"):
+              path = pathlib.Path(name)
+              if not path.exists():
+                  continue
+              lines = [line.rstrip() for line in path.read_text(errors="ignore").splitlines()]
+              picked = [line for line in lines if patterns.match(line)]
+              if not picked:
+                  picked = [line for line in lines if "FAILED" in line or "error" in line.lower()]
+              print(f"## {name}: {len(picked)} ta xatolik qatori")
+              for line in picked[:80]:
+                  safe = line.replace("%", "%25").replace("\r", "%0D")
+                  print("::error::" + safe)
+          PY
 
       - name: Jurnallar va test hisobotlari (muvaffaqiyatsiz bo'lsa)
         if: failure()
