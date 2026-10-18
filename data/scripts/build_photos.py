@@ -123,7 +123,7 @@ def prune_unused() -> int:
     for folder in (OUT_DIR, ROOT / "app" / "src" / "main" / "assets" / "products"):
         if not folder.is_dir():
             continue
-        for path in folder.glob("*.webp"):
+        for path in folder.glob("prd-*.webp"):  # faqat eski chizma illustratsiyalar
             if f"products/{path.name}" not in used:
                 path.unlink()
                 removed += 1
