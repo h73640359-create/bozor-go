@@ -11,7 +11,13 @@
 2. **release** — faqat `v*` tegi va `vars.ENABLE_RELEASE_BUILD == 'true'` bo'lganda:
    - imzolangan `app-release.apk` + `mapping.txt`.
 
-APK havolasi: **Actions → eng oxirgi muvaffaqiyatli ish → Artifacts → `app-debug`**.
+APK havolasi: **Actions → eng oxirgi muvaffaqiyatli ish → Artifacts → `app-debug`**
+(artefakt 30 kun saqlanadi; debug paket nomi `uz.bozorgo.debug`).
+
+Qo'shimcha: yig'ish muvaffaqiyatsiz bo'lsa, ish Gradle chiqishidagi xatolik
+qatorlarini `::error::` annotatsiya sifatida chiqaradi va `unit-tests.log` /
+`assemble-debug.log` fayllarini artefaktga qo'shadi — Actions jurnali
+to'liq ko'rinmasa ham xatolik sababini ko'rish mumkin.
 
 ## Kerakli sirlari (Settings → Secrets and variables → Actions)
 

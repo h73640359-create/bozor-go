@@ -10,6 +10,20 @@ PostgreSQL/Express backend va admin paneli bilan.
 
 ---
 
+## 0. Holat (tekshirilgan)
+
+| Tekshiruv | Natija |
+|---|---|
+| GitHub Actions: `./gradlew testDebugUnitTest` | ✅ muvaffaqiyatli |
+| GitHub Actions: `./gradlew assembleDebug` | ✅ muvaffaqiyatli |
+| APK artefakti (`app-debug`) | ✅ 20,7 MB — `app/build/outputs/apk/debug/app-debug.apk` |
+| Katalog: 1000 ta noyob mahsulot | ✅ 63 ta tekshiruv + unit testlar |
+| Backend testlari (`cd server && npm test`) | ✅ 14 ta test |
+
+APK **faqat GitHub Actions'da** yig'iladi (loyihada JDK/Android SDK shart).
+Havola: **GitHub → Actions → oxirgi muvaffaqiyatli "Android" ishi → Artifacts → `app-debug`**.
+Debug paket nomi: `uz.bozorgo.debug`.
+
 ## 1. Loyiha tarkibi
 
 ```
