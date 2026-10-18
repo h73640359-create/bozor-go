@@ -147,7 +147,7 @@ private fun AuthScreen(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(stringResource(R.string.checkout_phone_hint)) },
                     singleLine = true,
-                    keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                    keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Phone,
                     ),
                     shape = RoundedCornerShape(14.dp),
@@ -169,7 +169,7 @@ private fun AuthScreen(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(stringResource(R.string.auth_code_label)) },
                     singleLine = true,
-                    keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                    keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number,
                     ),
                     shape = RoundedCornerShape(14.dp),

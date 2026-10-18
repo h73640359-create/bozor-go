@@ -66,8 +66,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import pathlib, re
-          noise = ("public inline fun", "public fun ", "defined in kotlin", "candidates is applicable",
-                   "None of the following functions is suitable")
+          noise = ("public inline fun", "public fun ", "public final fun", "defined in kotlin")
           pattern = re.compile(r'(e: |> Task .*FAILED|.*AAPT.*|.*: error:.*|.*Unresolved reference.*|.*Execution failed.*|.*Caused by.*)', re.I)
           for name in ("unit-tests.log", "assemble-debug.log"):
               path = pathlib.Path(name)
