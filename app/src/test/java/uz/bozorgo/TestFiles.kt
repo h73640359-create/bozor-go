@@ -15,6 +15,7 @@ object TestFiles {
         "src/main/assets/seed",
         "../app/src/main/assets/seed",
         "../data",
+        "../../data",
     )
 
     fun seed(name: String): File {
@@ -29,7 +30,12 @@ object TestFiles {
     }
 
     fun assetImage(path: String): File? {
-        for (dir in listOf("src/main/assets", "../app/src/main/assets", "../data/images")) {
+        for (dir in listOf(
+                "src/main/assets",
+                "../app/src/main/assets",
+                "../data/images",
+                "../../data/images",
+            )) {
             val file = File(dir, path)
             if (file.isFile) return file
         }

@@ -155,7 +155,7 @@ class CatalogSeedTest {
         categories.forEach { category ->
             assertThat(category["id"].asString).isNotEmpty()
             assertThat(category["name"].asString).isNotEmpty()
-            assertThat(category["image"].asString).isNotEmpty()
+            assertThat(category["icon"].asString).isNotEmpty()
             assertThat(category["subcategories"].asJsonArray).isNotEmpty()
         }
     }
