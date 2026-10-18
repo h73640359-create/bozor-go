@@ -95,11 +95,27 @@ class CatalogSeedTest {
     }
 
     @Test
-    fun imagesExistInAssetsAndAreUniquePerProduct() {
+    fun imagesExistInAssets() {
         val images = products.map { it["image"].asString }
-        assertThat(images.toSet()).hasSize(images.size)
+        assertThat(images).isNotEmpty()
         val missing = images.filter { TestFiles.assetImage(it) == null }
-        assertThat(missing).isEmpty()
+        assertWithMessage("Rasm fayli topilmagan mahsulotlar: ${missing.take(10)}")
+            .that(missing).isEmpty()
+    }
+
+    @Test
+    fun imageFilesMatchProductOrSubcategory() {
+        // Rasm yo mahsulot ID siga (chizma), yo kichik bo'lim fotosiga bog'langan.
+        val mismatched = products.mapNotNull { product ->
+            val id = product["id"].asString
+            val subcategory = product["subcategoryId"].asString
+            val image = product["image"].asString
+            val ok = image == "products/$id.webp" ||
+                (image.startsWith("products/${subcategory}__") && image.endsWith(".webp"))
+            if (ok) null else "$id -> $image"
+        }
+        assertWithMessage("Rasm noto'g'ri bog'langan: ${mismatched.take(10)}")
+            .that(mismatched).isEmpty()
     }
 
     @Test

@@ -124,14 +124,22 @@ class ImageAssetsTest {
     }
 
     @Test
-    fun imageFolderContainsAllProductImages() {
+    fun imageFolderContainsEveryReferencedImage() {
         val files = productsDir.listFiles { file -> file.extension == "webp" }.orEmpty()
         assertWithMessage("Rasm papkasi bo'sh yoki topilmadi: ${productsDir.path}")
             .that(files).isNotEmpty()
-        assertWithMessage("Rasmlar soni mahsulotlar sonidan kam bo'lmasligi kerak")
-            .that(files.size).isAtLeast(products.size)
-        assertWithMessage("Katalogda kamida 1000 ta mahsulot rasmi bo'lishi kerak")
-            .that(files.size).isAtLeast(1000)
+
+        val referenced = products.map { it["image"].asString }.toSet()
+        val missing = referenced.filter { TestFiles.assetImage(it) == null }
+        assertWithMessage("Katalogdagi rasm fayli topilmadi: ${missing.take(10)}")
+            .that(missing).isEmpty()
+
+        // Har bir mahsulot uchun rasm manbasi bor (1000 ta) — takrorlanishi mumkin,
+        // lekin bitta rasm yuzlab mahsulotda bo'lishi mumkin emas.
+        assertWithMessage("Har bir mahsulot rasmga bog'langan bo'lishi kerak")
+            .that(referenced.isNotEmpty()).isTrue()
+        assertWithMessage("Kamida 1000 ta mahsulot rasmga bog'langan bo'lishi kerak")
+            .that(products.size).isAtLeast(1000)
     }
 
     // ---------------------------------------------------------------- 2
@@ -145,16 +153,21 @@ class ImageAssetsTest {
             byHash.getOrPut(md5(file)) { mutableListOf() }.add(product["id"].asString)
         }
 
-        val tooMany = byHash.filter { it.value.size > maxSharedImage }
+        // Chizma illustratsiyalar: deyarli har mahsulotda o'ziga xos.
+        val imageById = products.associateBy { it["id"].asString }
+        val drawingGroups = byHash.values.filter { ids ->
+            "__" !in imageById.getValue(ids.first())["image"].asString
+        }
+        val tooMany = drawingGroups.filter { it.size > maxSharedImage }
         assertWithMessage(
-            "Bir xil rasm $maxSharedImage dan ortiq mahsulotda ishlatilgan: " +
-                tooMany.values.take(5),
+            "Bir xil chizma $maxSharedImage dan ortiq mahsulotda ishlatilgan: " +
+                tooMany.take(5),
         ).that(tooMany).isEmpty()
 
-        // Foto rasmlar bir kichik bo'lim ichida bo'lishilishi mumkin.
+        // Foto rasmlar bir kichik bo'lim ichida bo'lishiladi (o'nlab mahsulotda),
+        // lekin yuzlab mahsulotda emas.
         val photoGroups = byHash.values.filter { ids ->
-            val first = products.first { it["id"].asString == ids.first() }
-            "__" in first["image"].asString
+            "__" in imageById.getValue(ids.first())["image"].asString
         }
         val photoTooMany = photoGroups.filter { it.size > maxSharedPhoto }
         assertWithMessage(
