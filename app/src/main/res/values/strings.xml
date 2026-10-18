@@ -262,68 +262,68 @@
 
     <!-- Yordam / Maxfiylik / Shartlar ekrani -->
     <string name="info_help_title">Yordam</string>
-    <string name="info_help_body">BozorGo — namunaviy (demo) onlayn do'kon ilovasi. Katalogdagi barcha mahsulotlar, narxlar, chegirmalar va reytinglar sinov ma'lumoti hisoblanadi.
+    <string name="info_help_body">BozorGo — namunaviy (demo) onlayn do\'kon ilovasi. Katalogdagi barcha mahsulotlar, narxlar, chegirmalar va reytinglar sinov ma\'lumoti hisoblanadi.
 
 1. Buyurtma qanday beriladi?
-Savatchaga mahsulot qo'shing, «Buyurtma berish» tugmasini bosing, yetkazib berish manzili va to'lov usulini tanlang, so'ng buyurtmani tasdiqlang. Tasdiqlangan buyurtmaga tartib raqami beriladi va «Buyurtmalar» bo'limida saqlanadi.
+Savatchaga mahsulot qo\'shing, «Buyurtma berish» tugmasini bosing, yetkazib berish manzili va to\'lov usulini tanlang, so\'ng buyurtmani tasdiqlang. Tasdiqlangan buyurtmaga tartib raqami beriladi va «Buyurtmalar» bo\'limida saqlanadi.
 
 2. Yetkazib berish narxi
-Standart yetkazib berish 15 000 so'm. 100 000 so'mdan yuqori buyurtmalar uchun bepul. Tezkor yetkazib berish 25 000 so'm, olib ketish (pickup) bepul. Bu qiymatlar demo hisoblanadi.
+Standart yetkazib berish 15 000 so\'m. 100 000 so\'mdan yuqori buyurtmalar uchun bepul. Tezkor yetkazib berish 25 000 so\'m, olib ketish (pickup) bepul. Bu qiymatlar demo hisoblanadi.
 
-3. To'lov usullari
-Naqd (kuryerga) va karta orqali. Haqiqiy to'lov provayderi ulanmagani uchun karta to'lovi demo rejimida ishlaydi va haqiqiy pul o'tkazmaydi.
+3. To\'lov usullari
+Naqd (kuryerga) va karta orqali. Haqiqiy to\'lov provayderi ulanmagani uchun karta to\'lovi demo rejimida ishlaydi va haqiqiy pul o\'tkazmaydi.
 
-4. Internet bo'lmasa
+4. Internet bo\'lmasa
 Mahsulotlar qurilmadagi bazada saqlanadi, shuning uchun katalog, qidiruv va savatcha oflayn ishlaydi. Server ulanganda buyurtmalar sinxronlanadi.
 
 5. Aloqa
 support@bozorgo.example — namunaviy manzil, real pochta emas.</string>
     <string name="info_privacy_title">Maxfiylik siyosati</string>
-    <string name="info_privacy_body">BozorGo foydalanuvchi ma'lumotlarini faqat buyurtmalarni rasmiylashtirish va yetkazib berish uchun ishlatadi.
+    <string name="info_privacy_body">BozorGo foydalanuvchi ma\'lumotlarini faqat buyurtmalarni rasmiylashtirish va yetkazib berish uchun ishlatadi.
 
-Saqlanadigan ma'lumotlar: ism, telefon raqami, yetkazib berish manzillari, savatcha va buyurtmalar tarixi, sevimli mahsulotlar. Ular qurilmada (Room bazasi va DataStore) saqlanadi; server ulangan bo'lsa, buyurtmalar serverga ham yuboriladi.
+Saqlanadigan ma\'lumotlar: ism, telefon raqami, yetkazib berish manzillari, savatcha va buyurtmalar tarixi, sevimli mahsulotlar. Ular qurilmada (Room bazasi va DataStore) saqlanadi; server ulangan bo\'lsa, buyurtmalar serverga ham yuboriladi.
 
-To'lov ma'lumotlari ilovada saqlanmaydi: karta orqali to'lov demo rejimida bo'lib, haqiqiy pul o'tkazmaydi va karta ma'lumotlari so'ralmaydi.
+To\'lov ma\'lumotlari ilovada saqlanmaydi: karta orqali to\'lov demo rejimida bo\'lib, haqiqiy pul o\'tkazmaydi va karta ma\'lumotlari so\'ralmaydi.
 
-Ma'lumotlar uchinchi shaxslarga berilmaydi va sotilmaydi. Ilova o'chirib tashlansa, qurilmadagi ma'lumotlar ham o'chadi.
+Ma\'lumotlar uchinchi shaxslarga berilmaydi va sotilmaydi. Ilova o\'chirib tashlansa, qurilmadagi ma\'lumotlar ham o\'chadi.
 
-Bu demo loyiha bo'lgani uchun real shaxsiy ma'lumotlarni kiritmaslik tavsiya etiladi.</string>
+Bu demo loyiha bo\'lgani uchun real shaxsiy ma\'lumotlarni kiritmaslik tavsiya etiladi.</string>
     <string name="info_terms_title">Foydalanish shartlari</string>
     <string name="info_terms_body">BozorGo — ochiq namunaviy (demo) loyiha. Ilovadan foydalanish orqali quyidagilarga rozilik bildirasiz:
 
-1. Katalogdagi mahsulotlar, brendlar, tavsiflar, narxlar, chegirmalar, reytinglar va sharhlar namunaviy ma'lumot bo'lib, real savdo taklifi emas.
+1. Katalogdagi mahsulotlar, brendlar, tavsiflar, narxlar, chegirmalar, reytinglar va sharhlar namunaviy ma\'lumot bo\'lib, real savdo taklifi emas.
 2. Buyurtma berish real shartnoma tuzmaydi va tovar yetkazib berilishi majburiyatini yaratmaydi.
-3. To'lov demo rejimida: haqiqiy pul o'tkazmalari amalga oshirilmaydi.
-4. Server manzili (API_BASE_URL) sozlanmaganda ilova to'liq oflayn ishlaydi.
-5. Ilova «boricha» taqdim etiladi; mualliflar demo ma'lumotlarning to'g'riligi uchun javob bermaydi.</string>
+3. To\'lov demo rejimida: haqiqiy pul o\'tkazmalari amalga oshirilmaydi.
+4. Server manzili (API_BASE_URL) sozlanmaganda ilova to\'liq oflayn ishlaydi.
+5. Ilova «boricha» taqdim etiladi; mualliflar demo ma\'lumotlarning to\'g\'riligi uchun javob bermaydi.</string>
     <string name="info_last_updated">Matn demo versiya (1.0.0) uchun tayyorlangan.</string>
 
     <!-- Buyurtma muvaffaqiyatli rasmiylashtirildi -->
     <string name="order_success_title">Buyurtma qabul qilindi</string>
-    <string name="order_success_subtitle">Buyurtmangiz saqlandi. Holatini «Buyurtmalar» bo'limida kuzatishingiz mumkin.</string>
+    <string name="order_success_subtitle">Buyurtmangiz saqlandi. Holatini «Buyurtmalar» bo\'limida kuzatishingiz mumkin.</string>
     <string name="order_success_number">Buyurtma raqami</string>
     <string name="order_success_total">Jami</string>
     <string name="order_success_track">Buyurtmani kuzatish</string>
     <string name="order_success_home">Bosh sahifa</string>
 
     <!-- Profilni tahrirlash -->
-    <string name="profile_saved">Ma'lumotlar saqlandi</string>
+    <string name="profile_saved">Ma\'lumotlar saqlandi</string>
     <string name="profile_edit_hint">Ism va telefon raqami faqat ushbu qurilmada saqlanadi.</string>
 
     <!-- Sozlamalar -->
     <string name="settings_title">Sozlamalar</string>
     <string name="settings_language">Til</string>
     <string name="settings_language_system">Tizim tili</string>
-    <string name="settings_language_restart">Til o'zgartirildi — o'zgarish darhol qo'llanadi</string>
+    <string name="settings_language_restart">Til o\'zgartirildi — o\'zgarish darhol qo\'llanadi</string>
     <string name="settings_theme">Mavzu</string>
     <string name="settings_theme_system">Tizim mavzusi</string>
-    <string name="settings_theme_light">Yorug'</string>
-    <string name="settings_theme_dark">Qorong'i</string>
-    <string name="settings_data">Ma'lumotlar</string>
+    <string name="settings_theme_light">Yorug\'</string>
+    <string name="settings_theme_dark">Qorong\'i</string>
+    <string name="settings_data">Ma\'lumotlar</string>
     <string name="settings_clear_history">Qidiruv tarixini tozalash</string>
     <string name="settings_history_cleared">Qidiruv tarixi tozalandi</string>
     <string name="settings_clear_cache">Rasm keshini tozalash</string>
-    <string name="settings_clear_cache_confirm">Yuklab olingan rasmlar keshini o'chirishni xohlaysizmi? Ular internet borida qayta yuklanadi.</string>
+    <string name="settings_clear_cache_confirm">Yuklab olingan rasmlar keshini o\'chirishni xohlaysizmi? Ular internet borida qayta yuklanadi.</string>
     <string name="settings_reseed">Katalogni qayta yuklash</string>
     <string name="settings_reseed_hint">Bazada: %1$d ta mahsulot</string>
     <string name="settings_about_title">Ilova haqida</string>
