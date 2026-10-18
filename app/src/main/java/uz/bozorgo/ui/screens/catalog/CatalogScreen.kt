@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -56,8 +57,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,6 +74,7 @@ import uz.bozorgo.ui.components.ErrorState
 import uz.bozorgo.ui.components.ProductCard
 import uz.bozorgo.ui.components.ShimmerBox
 import uz.bozorgo.ui.screens.home.parseColorSafe
+import uz.bozorgo.ui.components.ProductImage
 import uz.bozorgo.ui.theme.BozorGoColors
 
 @Composable
@@ -561,31 +563,36 @@ fun CategoryCard(
         color = Color.White,
         shadowElevation = 1.dp,
     ) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Kategoriya rasmi: APK ichidagi asset, 16:10 nisbatda (kesilmaydi).
             Box(
                 modifier = Modifier
-                    .size(52.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(tint.copy(alpha = 0.14f)),
-                contentAlignment = Alignment.Center,
+                    .fillMaxWidth()
+                    .aspectRatio(1.6f)
+                    .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .background(tint.copy(alpha = 0.10f)),
             ) {
-                Text(
-                    text = category.name.take(2).uppercase(),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = tint,
-                    textAlign = TextAlign.Center,
+                ProductImage(
+                    model = category.imageModel(),
+                    contentDescription = category.name,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Fit,
                 )
             }
-            Spacer(Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 10.dp),
+            ) {
                 Text(
                     text = category.name,
                     style = MaterialTheme.typography.titleSmall,
                     color = BozorGoColors.TextPrimary,
+                    maxLines = 2,
+                    minLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                 )
+                Spacer(Modifier.height(2.dp))
                 Text(
                     text = stringResource(R.string.catalog_products_count, category.productCount),
                     style = MaterialTheme.typography.bodySmall,

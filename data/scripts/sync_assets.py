@@ -7,6 +7,8 @@ Ishlatish:
 data/catalog.json, data/categories.json, data/banners.json   -> app/src/main/assets/seed/
 data/images/products/*.webp                                   -> app/src/main/assets/products/
 data/images/banners/*.webp                                    -> app/src/main/assets/banners/
+data/images/categories/*.webp                                 -> app/src/main/assets/categories/
+data/images/fallback/*.webp                                   -> app/src/main/assets/fallback/
 """
 from __future__ import annotations
 
@@ -26,6 +28,8 @@ JOBS = [
 DIR_JOBS = [
     (ROOT / "data" / "images" / "products", ASSETS / "products"),
     (ROOT / "data" / "images" / "banners", ASSETS / "banners"),
+    (ROOT / "data" / "images" / "categories", ASSETS / "categories"),
+    (ROOT / "data" / "images" / "fallback", ASSETS / "fallback"),
 ]
 
 

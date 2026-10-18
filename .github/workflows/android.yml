@@ -59,6 +59,64 @@ jobs:
           set -o pipefail
           ./gradlew assembleDebug --stacktrace 2>&1 | tee assemble-debug.log
 
+      # APK ichida rasmlar haqiqatan borligini tekshirish (rasm fayl kiritilmay
+      # qolgan bo'lsa — yig'ish muvaffaqiyatsiz tugaydi, jim o'tib ketmaydi).
+      - name: APK ichidagi rasmlarni tekshirish
+        run: |
+          python3 - <<'PY'
+          import sys, zipfile
+
+          APK = "app/build/outputs/apk/debug/app-debug.apk"
+          try:
+              z = zipfile.ZipFile(APK)
+          except FileNotFoundError:
+              print("::error::APK topilmadi: " + APK)
+              sys.exit(1)
+
+          names = z.namelist()
+          groups = {
+              "Mahsulot rasmlari": "assets/products/",
+              "Kategoriya rasmlari": "assets/categories/",
+              "Zaxira rasmlar": "assets/fallback/",
+              "Banner rasmlari": "assets/banners/",
+          }
+          minimum = {
+              "Mahsulot rasmlari": 1000,
+              "Kategoriya rasmlari": 15,
+              "Zaxira rasmlar": 15,
+              "Banner rasmlari": 5,
+          }
+
+          total_bytes = 0
+          problems = []
+          for label, prefix in groups.items():
+              files = [
+                  n for n in names
+                  if n.startswith(prefix) and n.lower().endswith(".webp")
+              ]
+              size = sum(z.getinfo(n).file_size for n in files)
+              total_bytes += size
+              print(f"{label}: {len(files)} ta ({size / 1024 / 1024:.2f} MB)")
+              if len(files) < minimum[label]:
+                  problems.append(
+                      f"{label}: kutilgan >= {minimum[label]}, topildi {len(files)}"
+                  )
+              empty = [n for n in files if z.getinfo(n).file_size < 500]
+              if empty:
+                  problems.append(f"{label}: bo'sh/juda kichik fayllar: {empty[:3]}")
+
+          for seed in ("assets/seed/catalog.json", "assets/seed/categories.json"):
+              if seed not in names:
+                  problems.append(f"APK ichida seed fayli yo'q: {seed}")
+
+          print(f"APK hajmi: {sum(z.getinfo(i).file_size for i in z.infolist()) / 1024 / 1024:.1f} MB")
+          print(f"Rasmlar jami: {total_bytes / 1024 / 1024:.2f} MB")
+
+          for problem in problems:
+              print("::error::" + problem)
+          sys.exit(1 if problems else 0)
+          PY
+
       - name: APK artefakti
         uses: actions/upload-artifact@v4
         with:

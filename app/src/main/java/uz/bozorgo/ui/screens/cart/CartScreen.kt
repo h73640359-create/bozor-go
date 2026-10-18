@@ -245,7 +245,8 @@ private fun CartItemRow(
                     .background(BozorGoColors.SurfaceVariant),
             ) {
                 ProductImage(
-                    model = item.product.imageModelOrNull(),
+                    model = item.product.imageModel(),
+                    fallbackModel = item.product.fallbackImageModel(),
                     contentDescription = item.product.name,
                     modifier = Modifier.fillMaxSize(),
                 )

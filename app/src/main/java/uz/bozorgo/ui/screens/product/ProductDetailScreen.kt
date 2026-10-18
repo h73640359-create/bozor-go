@@ -248,7 +248,8 @@ private fun ProductContent(
                 .background(BozorGoColors.SurfaceVariant),
         ) {
             ProductImage(
-                model = product.imageModelOrNull(),
+                model = product.imageModel(),
+                fallbackModel = product.fallbackImageModel(),
                 contentDescription = product.name,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit,

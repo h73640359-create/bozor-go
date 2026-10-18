@@ -49,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -63,6 +64,7 @@ import uz.bozorgo.domain.model.Product
 import uz.bozorgo.ui.components.EmptyState
 import uz.bozorgo.ui.components.ErrorState
 import uz.bozorgo.ui.components.LoadingState
+import uz.bozorgo.ui.components.ProductImage
 import uz.bozorgo.ui.components.ProductRow
 import uz.bozorgo.ui.components.ProductCard
 import uz.bozorgo.ui.components.SectionHeader
@@ -481,7 +483,20 @@ private fun BannerCard(
                 .background(Brush.horizontalGradient(listOf(start, end)))
                 .padding(18.dp),
         ) {
-            Column(modifier = Modifier.align(Alignment.CenterStart)) {
+            // Fon: banner rasmi (APK ichidagi asset). Rasm bo'lmasa gradient qoladi.
+            if (banner.imageAssetPath.isNotBlank()) {
+                ProductImage(
+                    model = uz.bozorgo.core.common.Constants.ASSET_IMAGE_PREFIX + banner.imageAssetPath,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .width(210.dp),
+            ) {
                 Text(
                     text = banner.title,
                     style = MaterialTheme.typography.titleMedium,
@@ -544,10 +559,11 @@ private fun CategoryChip(
                 .background(tint.copy(alpha = 0.14f)),
             contentAlignment = Alignment.Center,
         ) {
-            Text(
-                text = category.name.take(2).uppercase(),
-                style = MaterialTheme.typography.titleSmall,
-                color = tint,
+            ProductImage(
+                model = category.imageModel(),
+                contentDescription = category.name,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Fit,
             )
         }
         Spacer(Modifier.height(6.dp))

@@ -43,12 +43,26 @@ data class Product(
     /** Chegirma bormi? */
     val hasDiscount: Boolean get() = effectivePrice < price
 
+    /**
+     * Rasm manbai: server URL bo'lsa shu, aks holda APK ichidagi asset.
+     * Ikkalasi ham bo'sh bo'lsa `null` — bunda kategoriya rasmi chiziladi.
+     */
     fun imageModelOrNull(): String? =
         when {
             imageUrl.isNotBlank() -> imageUrl
             imageAssetPath.isNotBlank() -> uz.bozorgo.core.common.Constants.ASSET_IMAGE_PREFIX + imageAssetPath
             else -> null
         }
+
+    /** Rasm manbai — bo'sh bo'lsa kategoriya rasmi qaytadi (bo'sh kartalar qolmaydi). */
+    fun imageModel(): String = imageModelOrNull() ?: fallbackImageModel()
+
+    /**
+     * Asosiy rasm yuklanmasa ko'rsatiladigan zaxira rasm.
+     * Kategoriyaga mos (har bir kategoriyaning o'z rasmi), umumiy kulrang kvadrat emas.
+     */
+    fun fallbackImageModel(): String =
+        uz.bozorgo.core.common.Constants.FALLBACK_IMAGE_PREFIX + categoryId + ".webp"
 }
 
 data class ProductOption(

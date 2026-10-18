@@ -18,6 +18,7 @@ Ishga tushirish:
 from __future__ import annotations
 
 import json
+import hashlib
 import sys
 import unicodedata
 from pathlib import Path
@@ -73,6 +74,7 @@ def main() -> int:
     catalog = json.loads((DATA_DIR / "catalog.json").read_text(encoding="utf-8"))
     categories = json.loads((DATA_DIR / "categories.json").read_text(encoding="utf-8"))["categories"]
     products = catalog["products"]
+    banners = json.loads((DATA_DIR / "banners.json").read_text(encoding="utf-8"))["banners"]
 
     c = Checker()
 
@@ -171,6 +173,85 @@ def main() -> int:
             if not (DATA_DIR / "images" / p["image"]).exists()
         ]
         c.check(not missing, f"Rasm fayllari topilmadi ({len(missing)} ta), masalan: {missing[:5]}")
+
+        # 7.1 Rasm nomi mahsulot identifikatoriga mos (nom bo'yicha taxmin emas)
+        mismatched = [
+            f"{p['id']} -> {p['image']}"
+            for p in products
+            if p["image"] != f"products/{p['id']}.webp"
+        ]
+        c.check(not mismatched, f"Rasm nomi ID ga mos emas ({len(mismatched)} ta): {mismatched[:5]}")
+
+        # 7.2 Format va hajm
+        broken = []
+        for p in products:
+            path = DATA_DIR / "images" / p["image"]
+            if not path.exists():
+                continue
+            header = path.open("rb").read(12)
+            size = path.stat().st_size
+            if header[:4] != b"RIFF" or header[8:12] != b"WEBP":
+                broken.append(f"{p['id']}: WebP emas")
+            elif size < 500 or size > 250_000:
+                broken.append(f"{p['id']}: hajmi {size} bayt")
+        c.check(not broken, f"Yaroqsiz rasm fayllari ({len(broken)} ta): {broken[:5]}")
+
+        # 7.3 Bitta rasm yuzlab mahsulotlarga biriktirilmagan
+        by_hash: dict[str, list[str]] = {}
+        for p in products:
+            path = DATA_DIR / "images" / p["image"]
+            if not path.exists():
+                continue
+            digest = hashlib.md5(path.read_bytes()).hexdigest()
+            by_hash.setdefault(digest, []).append(p["id"])
+        max_shared = 5
+        too_many = [ids for ids in by_hash.values() if len(ids) > max_shared]
+        c.check(
+            not too_many,
+            f"Bir rasm {max_shared} dan ortiq mahsulotda takrorlangan: {too_many[:3]}",
+        )
+        sub_by_id = {p["id"]: p["subcategoryId"] for p in products}
+        cross = [
+            ids for ids in by_hash.values()
+            if len({sub_by_id[i] for i in ids}) > 1
+        ]
+        c.check(
+            not cross,
+            f"Bir rasm turli kichik bo'limlarda ishlatilgan: {cross[:3]}",
+        )
+
+        # 7.4 Kategoriya rasmlari va zaxira rasmlar
+        missing_card = [
+            cat["id"] for cat in categories
+            if not (DATA_DIR / "images" / "categories" / f"{cat['id']}.webp").exists()
+        ]
+        missing_fallback = [
+            cat["id"] for cat in categories
+            if not (DATA_DIR / "images" / "fallback" / f"{cat['id']}.webp").exists()
+        ]
+        c.check(not missing_card, f"Kategoriya rasmlari topilmadi: {missing_card}")
+        c.check(not missing_fallback, f"Zaxira rasmlar topilmadi: {missing_fallback}")
+
+        # 7.5 Uzoq manzillar formati
+        bad_urls = [
+            f"{p['id']} -> {p['imageUrl']}"
+            for p in products
+            if p.get("imageUrl", "").strip()
+            and not (
+                p["imageUrl"].startswith(("http://", "https://"))
+                and "." in p["imageUrl"].split("//", 1)[-1].split("/", 1)[0]
+            )
+        ]
+        c.check(not bad_urls, f"Noto'g'ri rasm URL: {bad_urls[:5]}")
+
+        # 7.6 Banner rasmlari
+        missing_banners = [
+            b["image"] for b in banners
+            if not (DATA_DIR / "images" / b["image"]).exists()
+        ]
+        c.check(not missing_banners, f"Banner rasmlari topilmadi: {missing_banners[:5]}")
+
+    print(f"Rasm fayllari    : {len({p['image'] for p in products})} ta mahsulot rasmi")
 
     # Natija
     total = len(products)

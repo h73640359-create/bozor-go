@@ -1,5 +1,7 @@
 package uz.bozorgo.domain.model
 
+import uz.bozorgo.core.common.Constants
+
 enum class OrderStatus(val key: String) {
     CREATED("created"),
     CONFIRMED("confirmed"),
@@ -44,6 +46,20 @@ data class OrderItem(
     val selectedOption: String? = null,
 ) {
     val lineTotal: Double get() = (discountPrice ?: unitPrice) * quantity
+
+    /**
+     * Buyurtma tarkibidagi mahsulot rasmi.
+     * Buyurtma yaratilganda rasm manbasi saqlab qolingan, shuning uchun
+     * tarix va tafsilot ekranlari ham rasmni ko'rsata oladi.
+     */
+    fun imageModelOrNull(): String? = when {
+        imageUrl.isNotBlank() -> imageUrl
+        imageAssetPath.isNotBlank() -> Constants.ASSET_IMAGE_PREFIX + imageAssetPath
+        else -> null
+    }
+
+    /** Zaxira manba: identifikator bo'yicha lokal rasm. */
+    fun fallbackImageModel(): String = Constants.ASSET_IMAGE_PREFIX + "products/" + productId + ".webp"
 }
 
 data class Order(

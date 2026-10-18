@@ -17,6 +17,12 @@ object Constants {
     /** Mahsulot rasmlari joylashgan assets papkasi. */
     const val ASSET_IMAGE_PREFIX = "file:///android_asset/"
 
+    /** Kategoriya rasmlari (katalog kartalari uchun): assets/categories/<id>.webp. */
+    const val CATEGORY_IMAGE_PREFIX = "file:///android_asset/categories/"
+
+    /** Mahsulot rasmi topilmaganda ko'rsatiladigan kategoriya rasmi. */
+    const val FALLBACK_IMAGE_PREFIX = "file:///android_asset/fallback/"
+
     /** Seed fayllari. */
     const val SEED_CATALOG = "seed/catalog.json"
     const val SEED_CATEGORIES = "seed/categories.json"

@@ -141,17 +141,39 @@ illustratsiyalar (Pillow bilan chizilgan, WebP, 320×320). Real fotosurat emas, 
 mualliflik huquqiga tegishli emas, har bir mahsulot o'z kichik bo'limi ikonkasini oladi.
 Batafsil: [docs/CATALOG.md](docs/CATALOG.md).
 
+**Rasmlar strategiyasi (muhim):** rasmlar internetdan emas, APK ichidagi `assets/` dan
+yuklanadi — o'lik havolalar yo'q, oflayn ham ishlaydi.
+
+| Nima | Qayerda | Soni |
+|---|---|---|
+| Mahsulot rasmlari | `assets/products/<productId>.webp` | 1000 (har biri noyob) |
+| Kategoriya rasmlari | `assets/categories/<categoryId>.webp` | 15 |
+| Zaxira (fallback) rasmlar | `assets/fallback/<categoryId>.webp` | 15 |
+| Banner illustratsiyalari | `assets/banners/<bannerId>.webp` | 5 |
+
+Yuklash tartibi (`ui/components/ProductCard.kt` → `ProductImage`):
+1. `imageUrl` (admin panel orqali yuklangan rasm) → 2. APK ichidagi asset →
+3. rasm topilmasa **kategoriyaga mos zaxira rasm** (hech qachon hamma narsada bitta kulrang
+kvadrat qolmaydi). Internet orqali yuklanayotganda — yuklanish ko'rsatkichi, 1 marta qayta
+urinish, har bir xatolik `BozorGoImage` tegi bilan logga yoziladi. Coil keshidan (xotira +
+disk) foydalaniladi, "Sozlamalar → Keshni tozalash" rasmlar keshini ham tozalaydi.
+
 ## 5. Testlar
 
 ```bash
 ./gradlew testDebugUnitTest   # Android unit testlari
 cd server && npm test         # backend (sof mantiq) testlari
-python3 data/scripts/validate_catalog.py --with-images   # katalog: 63 ta tekshiruv
+python3 data/scripts/validate_catalog.py --with-images   # katalog + rasmlar: 71 ta tekshiruv
 ```
 
 Android testlari orasida **majbriy** tekshiruvlar bor:
 kamida 1000 ta mahsulot, ID lar noyobligi, kategoriya ID lari mavjudligi, nom/tavsif/narx/rasm
 to'ldirilganligi, kategoriyalar bo'yicha aniq taqsimot, `isDemoData` belgisi.
+
+`ImageAssetsTest` rasmlarni alohida tekshiradi: har bir mahsulotning rasm fayli mavjudligi va
+WebP ekani, rasm nomi mahsulot ID siga mosligi, bitta rasm ko'p mahsulotda takrorlanmaganligi,
+har bir kategoriya uchun karta + zaxira rasm borligi, uzоq URL lar formati va domen modeli
+(`Product.imageModel()` / `Product.fallbackImageModel()`) haqiqatan mavjud faylga yo'naltirishi.
 
 ## 6. Hujjatlar
 

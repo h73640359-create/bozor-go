@@ -5,7 +5,14 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
+import coil.Coil
+import coil.ImageLoader
+import dagger.hilt.android.EntryPoint
 import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 /**
  * BozorGo ilovasi.
@@ -18,7 +25,25 @@ class BozorGoApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        installCoilImageLoader()
         createNotificationChannels()
+    }
+
+    /**
+     * Hilt bergan ImageLoader'ni Coil uchun asosiy (global) qilib o'rnatadi.
+     * Shunda `AsyncImage` ham xotira + disk keshdan foydalanadi va
+     * "Keshni tozalash" sozlamasi haqiqatan rasmlar keshini tozalaydi.
+     */
+    private fun installCoilImageLoader() {
+        runCatching {
+            val loader = EntryPointAccessors.fromApplication(
+                this,
+                ImageLoaderEntryPoint::class.java,
+            ).imageLoader()
+            Coil.setImageLoader(loader)
+        }.onFailure { error ->
+            Log.w(TAG, "ImageLoader o'rnatilmadi, Coil standart sozlamada ishlaydi", error)
+        }
     }
 
     private fun createNotificationChannels() {
@@ -44,7 +69,14 @@ class BozorGoApp : Application() {
         manager.createNotificationChannels(listOf(orders, promo))
     }
 
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface ImageLoaderEntryPoint {
+        fun imageLoader(): ImageLoader
+    }
+
     companion object {
+        private const val TAG = "BozorGoApp"
         const val CHANNEL_ORDERS = "bozorgo_orders"
         const val CHANNEL_PROMO = "bozorgo_promo"
     }

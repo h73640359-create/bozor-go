@@ -10,7 +10,8 @@ data/scripts/catalog_data/f01…f15_*.py   # har bir kategoriya uchun xom qatorl
 data/scripts/catalog_registry.py         # kichik bo'limlar, ikonkalar, ranglar, birliklar
 data/scripts/build_catalog.py            # → data/catalog.json, categories.json, banners.json
 data/scripts/generate_images.py          # → data/images/products/*.webp, banners/*.webp
-data/scripts/validate_catalog.py         # 63 ta tekshiruv (--with-images bilan)
+data/scripts/generate_category_images.py # → data/images/categories/*.webp, fallback/*.webp
+data/scripts/validate_catalog.py         # 71 ta tekshiruv (--with-images bilan)
 data/scripts/sync_assets.py              # data/ → app/src/main/assets/
 data/scripts/generate_brand.py, icons.py # logotip va ikonka chizish
 ```
@@ -48,9 +49,34 @@ Xuddi shunday tekshiruvlar Android unit testlarida ham bor (`app/src/test/.../Ca
   hosil qilingan gradient fon + o'lchov yorlig'i (`320×320`, WebP, ~3 KB).
 - Hammasi loyiha ichida Pillow bilan chizilgan **original illustratsiyalar** — real fotosurat emas,
   uchinchi shaxs mualliflik huquqiga tegishli emas, litsenziya talab qilmaydi.
-- Bir xil rasm takrorlanmaydi (xesh bo'yicha tekshiriladi), har bir kategoriya o'z ikonkasini oladi.
-- Jami hajm: ~2.9 MB (1000 ta rasm) — APK ichida, internetsiz ham ko'rinadi.
-- Bannerlar: `800×400` WebP (5 ta).
+- Bir xil rasm takrorlanmaydi (xesh bo'yicha tekshiriladi): 1000 ta mahsulot → 1000 ta noyob fayl.
+  Har bir rasm mahsulot ID si va nomidan olingan xesh asosida o'z gradienti, ikonka siljishi va
+  bezak nuqtalariga ega.
+- Jami hajm: ~3.0 MB (1000 ta rasm) — APK ichida, internetsiz ham ko'rinadi.
+- Bannerlar: `800×400` WebP (5 ta) — faqat fon + illustratsiya, matn Compose'da chiziladi.
+- Kategoriya rasmlari: `480×320` WebP (15 ta) — katalog kartalari va bosh sahifa chiplari uchun.
+- Zaxira rasmlar: `320×320` WebP (15 ta) — mahsulot rasmi topilmaganda kategoriyaga mos rasm.
+
+### Generatsiya
+
+```bash
+python3 data/scripts/generate_images.py          # 1000 mahsulot + 5 banner
+python3 data/scripts/generate_category_images.py # 15 kategoriya + 15 zaxira rasm
+python3 data/scripts/sync_assets.py              # data/ -> app/src/main/assets/
+python3 data/scripts/validate_catalog.py --with-images
+```
+
+Nomi o'zgargan mahsulotning rasmi ham o'zgaradi, lekin fayl nomi har doim
+`products/<productId>.webp` — ya'ni rasm mahsulot identifikatori bo'yicha bog'langan,
+nom bo'yicha taxmin qilinmaydi.
+
+### Ilovada qanday ko'rsatiladi
+
+`ProductImage` (ui/components/ProductCard.kt) ketma-ket 3 ta manbani sinaydi:
+`imageUrl` → asset → kategoriyaning zaxira rasmi. Internet orqali yuklashda progress
+ko'rsatkichi chiqadi va 1 marta qayta uriniladi; xatolik sababi `BozorGoImage` log tegiga
+yoziladi. Rasmlar `lazy` ro'yxatlarda (LazyVerticalGrid/LazyRow) sahifalab yuklanadi,
+Coil xotira + disk keshidan foydalanadi.
 
 ## Nima uchun 1000 ta aniq?
 

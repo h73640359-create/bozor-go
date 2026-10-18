@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
@@ -26,6 +27,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +39,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.util.Log
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import androidx.compose.ui.platform.LocalContext
@@ -42,26 +48,87 @@ import uz.bozorgo.R
 import uz.bozorgo.domain.model.Product
 import uz.bozorgo.ui.theme.BozorGoColors
 
-/** Mahsulot rasmi: server URL bo'lsa undan, aks holda APK ichidagi assets'dan. */
+/** Uzoqdan (server) yuklanayotgan rasm uchun qayta urinishlar soni. */
+private const val MAX_IMAGE_RETRIES = 1
+private const val IMAGE_LOG_TAG = "BozorGoImage"
+
+/**
+ * Mahsulot rasmi: server URL bo'lsa undan, aks holda APK ichidagi assets'dan.
+ *
+ * Ishlash tartibi:
+ * 1. Asosiy manba yuklanadi (asset yoki URL).
+ * 2. Uzoq URL bo'lsa — yuklanish jarayoni ko'rsatkichi + 1 marta qayta urinish.
+ * 3. Baribir yuklanmasa — mahsulot kategoriyasiga mos zaxira rasm (hech qachon
+ *    hamma mahsulot uchun bitta kulrang kvadrat qolmaydi).
+ * 4. Har bir xatolik sababi logga yoziladi.
+ */
 @Composable
 fun ProductImage(
     model: String?,
     contentDescription: String?,
     modifier: Modifier = Modifier,
+    fallbackModel: String? = null,
     contentScale: ContentScale = ContentScale.Fit,
 ) {
-    AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(model)
+    val context = LocalContext.current
+    // Karta qayta ishlatilganda (Lazy list) holat yangi manba bilan qayta tug'iladi.
+    var attempt by remember(model, fallbackModel) { mutableStateOf(0) }
+    var useFallback by remember(model, fallbackModel) { mutableStateOf(false) }
+    var isLoading by remember(model, fallbackModel) { mutableStateOf(true) }
+
+    val activeModel = if (useFallback) fallbackModel else model
+    val isRemote = activeModel?.startsWith("http") == true
+
+    val request = remember(context, activeModel, attempt) {
+        ImageRequest.Builder(context)
+            .data(activeModel)
             .crossfade(true)
-            .build(),
-        contentDescription = contentDescription,
+            .listener(
+                onStart = { isLoading = true },
+                onSuccess = { _, _ -> isLoading = false },
+                onCancel = { isLoading = false },
+                onError = { failedRequest, result ->
+                    Log.w(
+                        IMAGE_LOG_TAG,
+                        "Rasm yuklanmadi: ${failedRequest.data} — " +
+                            "${result.throwable::class.java.simpleName}: ${result.throwable.message}",
+                    )
+                    // Coil tinglovchilari asosiy (Main) oqimda chaqiriladi.
+                    isLoading = false
+                    if (!useFallback) {
+                        when {
+                            // Uzoq rasm: avval qayta urinamiz (cheklangan).
+                            isRemote && attempt < MAX_IMAGE_RETRIES -> attempt++
+                            // Keyin kategoriyaga mos zaxira rasmga o'tamiz.
+                            fallbackModel.isNullOrBlank().not() && fallbackModel != model -> useFallback = true
+                        }
+                    }
+                },
+            )
+            .build()
+    }
+
+    Box(
         modifier = modifier.background(BozorGoColors.SurfaceVariant),
-        contentScale = contentScale,
-        placeholder = painterResource(R.drawable.img_placeholder),
-        error = painterResource(R.drawable.img_placeholder),
-        fallback = painterResource(R.drawable.img_placeholder),
-    )
+        contentAlignment = Alignment.Center,
+    ) {
+        AsyncImage(
+            model = request,
+            contentDescription = contentDescription,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = contentScale,
+            placeholder = painterResource(R.drawable.img_placeholder),
+            error = painterResource(R.drawable.img_placeholder),
+            fallback = painterResource(R.drawable.img_placeholder),
+        )
+        // Faqat internet orqali yuklanayotganda ko'rsatkich: lokal asset bir lahzada chiqadi.
+        if (isLoading && isRemote) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                strokeWidth = 2.dp,
+            )
+        }
+    }
 }
 
 /** Katalog / bosh sahifa uchun mahsulot kartochkasi. */
@@ -91,7 +158,8 @@ fun ProductCard(
                     .background(BozorGoColors.SurfaceVariant),
             ) {
                 ProductImage(
-                    model = product.imageModelOrNull(),
+                    model = product.imageModel(),
+                    fallbackModel = product.fallbackImageModel(),
                     contentDescription = product.name,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
@@ -206,7 +274,8 @@ fun ProductRowCard(
                     .background(BozorGoColors.SurfaceVariant),
             ) {
                 ProductImage(
-                    model = product.imageModelOrNull(),
+                    model = product.imageModel(),
+                    fallbackModel = product.fallbackImageModel(),
                     contentDescription = product.name,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,

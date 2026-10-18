@@ -37,7 +37,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,7 @@ import uz.bozorgo.core.util.MoneyFormatter
 import uz.bozorgo.domain.model.Order
 import uz.bozorgo.domain.model.OrderStatus
 import uz.bozorgo.ui.components.EmptyState
+import uz.bozorgo.ui.components.ProductImage
 import uz.bozorgo.ui.components.ErrorState
 import uz.bozorgo.ui.components.LoadingState
 import uz.bozorgo.ui.theme.BozorGoColors
@@ -165,19 +168,55 @@ private fun OrderCard(
                 style = MaterialTheme.typography.labelSmall,
                 color = BozorGoColors.TextTertiary,
             )
-            Spacer(Modifier.height(8.dp))
-            Row {
-                Text(
-                    text = stringResource(R.string.orders_items_count, order.itemsCount),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = BozorGoColors.TextSecondary,
-                    modifier = Modifier.weight(1f),
-                )
-                Text(
-                    text = MoneyFormatter.formatUzs(order.total),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.primary,
-                )
+            Spacer(Modifier.height(10.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                // Buyurtmadagi mahsulotlar rasmlari (ko'pi bilan 4 tasi).
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    order.items.take(4).forEach { item ->
+                        Box(
+                            modifier = Modifier
+                                .size(46.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(BozorGoColors.SurfaceVariant),
+                        ) {
+                            ProductImage(
+                                model = item.imageModelOrNull() ?: item.fallbackImageModel(),
+                                fallbackModel = item.fallbackImageModel(),
+                                contentDescription = item.productName,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Fit,
+                            )
+                        }
+                    }
+                    if (order.items.size > 4) {
+                        Box(
+                            modifier = Modifier
+                                .size(46.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                                .background(BozorGoColors.SurfaceVariant),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(
+                                text = "+${order.items.size - 4}",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = BozorGoColors.TextSecondary,
+                            )
+                        }
+                    }
+                }
+                Spacer(Modifier.width(10.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(R.string.orders_items_count, order.itemsCount),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = BozorGoColors.TextSecondary,
+                    )
+                    Text(
+                        text = MoneyFormatter.formatUzs(order.total),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                }
             }
             if (!order.isSynced) {
                 Spacer(Modifier.height(6.dp))
@@ -356,13 +395,38 @@ private fun OrderDetailScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(
-                        text = "${item.quantity} x ${item.productName}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f),
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(56.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(BozorGoColors.SurfaceVariant),
+                    ) {
+                        ProductImage(
+                            model = item.imageModelOrNull() ?: item.fallbackImageModel(),
+                            fallbackModel = item.fallbackImageModel(),
+                            contentDescription = item.productName,
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Fit,
+                        )
+                    }
+                    Spacer(Modifier.width(10.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = item.productName,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        Text(
+                            text = "${item.quantity} x ${MoneyFormatter.formatUzs(item.discountPrice ?: item.unitPrice)}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = BozorGoColors.TextSecondary,
+                        )
+                    }
+                    Spacer(Modifier.width(8.dp))
                     Text(
                         text = MoneyFormatter.formatUzs(item.lineTotal),
                         style = MaterialTheme.typography.bodyMedium,

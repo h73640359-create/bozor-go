@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +32,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -43,6 +46,7 @@ import uz.bozorgo.domain.model.CartSummary
 import uz.bozorgo.domain.model.DeliveryMethod
 import uz.bozorgo.domain.model.PaymentMethod
 import uz.bozorgo.ui.components.ErrorState
+import uz.bozorgo.ui.components.ProductImage
 import uz.bozorgo.ui.theme.BozorGoColors
 
 @Composable
@@ -235,6 +239,47 @@ private fun CheckoutScreen(
                     }
 
                     SectionCard(title = stringResource(R.string.checkout_summary)) {
+                        // Buyurtma tarkibidagi mahsulotlar rasmlari.
+                        if (state.items.isNotEmpty()) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 10.dp),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            ) {
+                                state.items.take(5).forEach { item ->
+                                    Box(
+                                        modifier = Modifier
+                                            .size(48.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(BozorGoColors.SurfaceVariant),
+                                    ) {
+                                        ProductImage(
+                                            model = item.product.imageModel(),
+                                            fallbackModel = item.product.fallbackImageModel(),
+                                            contentDescription = item.product.name,
+                                            modifier = Modifier.fillMaxSize(),
+                                            contentScale = ContentScale.Fit,
+                                        )
+                                    }
+                                }
+                                if (state.items.size > 5) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(48.dp)
+                                            .clip(RoundedCornerShape(10.dp))
+                                            .background(BozorGoColors.SurfaceVariant),
+                                        contentAlignment = Alignment.Center,
+                                    ) {
+                                        Text(
+                                            text = "+${state.items.size - 5}",
+                                            style = MaterialTheme.typography.labelMedium,
+                                            color = BozorGoColors.TextSecondary,
+                                        )
+                                    }
+                                }
+                            }
+                        }
                         SummaryLine(
                             label = stringResource(R.string.cart_items_sum),
                             value = MoneyFormatter.formatUzs(state.summary.itemsTotal),

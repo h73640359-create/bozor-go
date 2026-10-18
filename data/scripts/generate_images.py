@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -27,7 +28,14 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from catalog_registry import SUBCATEGORIES  # noqa: E402
-from icons import ICON_DRAWERS, hex_to_rgb, lighten, make_palette, shift_hue  # noqa: E402
+from icons import (  # noqa: E402
+    Canvas,
+    ICON_DRAWERS,
+    hex_to_rgb,
+    lighten,
+    make_palette,
+    shift_hue,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
@@ -111,13 +119,30 @@ def unit_pill(base: Image.Image, text: str) -> None:
 
 def make_product_image(product: dict, category_color: str, icon_key: str) -> Image.Image:
     seed = seed_from(product["id"] + product["name"])
-    hue = ((seed % 1000) / 1000.0) * 26.0 - 13.0  # -13..+13 daraja
+    # Kengroq va aniqroq farq: bir xil kichik bo'limdagi mahsulotlar ham
+    # bir-biridan ajralib turadi (bitta rasm takrorlanib qolmaydi).
+    hue = ((seed % 4000) / 4000.0) * 52.0 - 26.0  # -26..+26 daraja
     base_rgb = shift_hue(hex_to_rgb(category_color), hue)
 
-    top = lighten(base_rgb, 0.42)
-    bottom = lighten(base_rgb, 0.06)
+    top = lighten(base_rgb, 0.40 + ((seed >> 4) % 9) * 0.012)
+    bottom = lighten(base_rgb, 0.04 + ((seed >> 8) % 7) * 0.010)
     img = vertical_gradient(SIZE, top, bottom).convert("RGBA")
     img.alpha_composite(radial_glow(SIZE))
+
+    # Mahsulotga xos mayda bezak nuqtalari (rasmni noyob qiladi).
+    decor = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    dd = ImageDraw.Draw(decor)
+    for index in range(3):
+        angle = (seed % 360) + index * 127
+        radius = SIZE * (0.20 + ((seed >> (index * 3)) % 5) * 0.05)
+        cx = SIZE / 2 + radius * math.cos(math.radians(angle))
+        cy = SIZE / 2 + radius * math.sin(math.radians(angle))
+        size = 8 + ((seed >> (index * 5)) % 5) * 3
+        dd.ellipse(
+            [cx - size, cy - size, cx + size, cy + size],
+            fill=(255, 255, 255, 46 + index * 10),
+        )
+    img.alpha_composite(decor)
 
     palette = make_palette(
         "#%02X%02X%02X" % shift_hue(base_rgb, 0),
@@ -142,11 +167,16 @@ def make_product_image(product: dict, category_color: str, icon_key: str) -> Ima
         fill=(20, 30, 40, 70),
     )
     shadow = shadow.filter(ImageFilter.GaussianBlur(icon_box * 0.05))
-    img.alpha_composite(shadow, (int((SIZE - icon_box) / 2), 34))
-    img.alpha_composite(icon_layer, (int((SIZE - icon_box) / 2), 34))
+    icon_x = int((SIZE - icon_box) / 2) + ((seed >> 12) % 5) - 2
+    icon_y = 30 + ((seed >> 16) % 7)
+    img.alpha_composite(shadow, (icon_x, icon_y))
+    img.alpha_composite(icon_layer, (icon_x, icon_y))
 
     unit_pill(img, product["unitLabel"])
     return img
+
+
+_CATEGORY_ICONS: dict[str, list[str]] = {}
 
 
 def make_banner_image(banner: dict) -> Image.Image:
@@ -174,14 +204,50 @@ def make_banner_image(banner: dict) -> Image.Image:
     img = img.convert("RGBA")
     img.alpha_composite(overlay)
 
-    d = ImageDraw.Draw(img)
-    title_font = load_font(FONT_PATH, 46)
-    sub_font = load_font(FONT_PATH_REGULAR, 30)
-    d.text((48, 130), banner["title"], font=title_font, fill=(255, 255, 255, 255))
-    d.text((48, 194), banner["subtitle"], font=sub_font, fill=(255, 255, 255, 230))
-    d.rounded_rectangle([48, 260, 250, 320], radius=30, fill=(255, 255, 255, 245))
-    d.text((80, 274), "Ko'rish", font=load_font(FONT_PATH, 28), fill=(33, 33, 33, 255))
+    # Matn va tugma Compose'da chiziladi — rasm faqat fon + illustratsiya.
+    icon_keys = banner_icons(banner)
+    if icon_keys:
+        size = 190
+        gap = 6
+        total = size * len(icon_keys) + gap * (len(icon_keys) - 1)
+        start_x = w - total - 40
+        y = (h - size) // 2
+        for index, key in enumerate(icon_keys):
+            layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+            ld = ImageDraw.Draw(layer)
+            palette = make_palette(banner["endColor"], hue_shift=0.0)
+            palette["light"] = (255, 255, 255)
+            palette["lighter"] = (255, 255, 255)
+            ICON_DRAWERS.get(key, ICON_DRAWERS["box"])(Canvas(ld, (0, 0, size, size), palette))
+            img.alpha_composite(layer, (start_x + index * (size + gap), y))
     return img
+
+
+def banner_icons(banner: dict) -> list[str]:
+    """Banner uchun kategoriyasiga mos 2 ta ikonka."""
+    global _CATEGORY_ICONS
+    category = str(banner.get("actionValue") or "")
+    keys = _CATEGORY_ICONS.get(category, [])
+    return keys[:2]
+
+
+def build_banner_icon_map(products: list[dict], icon_by_sub: dict) -> dict:
+    """Har kategoriya uchun eng ko'p uchraydigan ikonkalar ro'yxati."""
+    counts: dict[str, dict[str, int]] = {}
+    for product in products:
+        cid = product["categoryId"]
+        counts.setdefault(cid, {})
+        counts[cid][product["subcategoryId"]] = counts[cid].get(product["subcategoryId"], 0) + 1
+    result: dict[str, list[str]] = {}
+    for cid, subs in counts.items():
+        ordered = sorted(subs.items(), key=lambda item: (-item[1], item[0]))
+        deduped: list[str] = []
+        for sub, _ in ordered:
+            key = icon_by_sub.get(sub, "box")
+            if key != "box" and key in ICON_DRAWERS and key not in deduped:
+                deduped.append(key)
+        result[cid] = deduped
+    return result
 
 
 def main() -> None:
@@ -215,6 +281,7 @@ def main() -> None:
         if i % 200 == 0:
             print(f"  {i}/{len(products)}")
 
+    _CATEGORY_ICONS.update(build_banner_icon_map(products, icon_by_sub))
     for b in banners:
         make_banner_image(b).save(out_banners / f"{b['id']}.webp", "WEBP", quality=82, method=4)
 

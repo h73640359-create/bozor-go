@@ -14,7 +14,10 @@ data class Category(
     val colorHex: String,
     val productCount: Int = 0,
     val subcategories: List<Subcategory> = emptyList(),
-)
+) {
+    /** Kategoriya rasmi (APK ichida): assets/categories/<id>.webp. */
+    fun imageModel(): String = uz.bozorgo.core.common.Constants.CATEGORY_IMAGE_PREFIX + "$id.webp"
+}
 
 data class Banner(
     val id: String,

@@ -29,6 +29,20 @@ object TestFiles {
         )
     }
 
+    /** Rasm papkasini topadi (masalan "products" yoki "categories"). */
+    fun assetDir(path: String): File? {
+        for (dir in listOf(
+                "src/main/assets",
+                "../app/src/main/assets",
+                "../data/images",
+                "../../data/images",
+            )) {
+            val file = File(dir, path)
+            if (file.isDirectory) return file
+        }
+        return null
+    }
+
     fun assetImage(path: String): File? {
         for (dir in listOf(
                 "src/main/assets",
