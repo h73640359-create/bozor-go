@@ -7,12 +7,9 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import coil.Coil
-import coil.ImageLoader
-import dagger.hilt.android.EntryPoint
-import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.EntryPointAccessors
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.HiltAndroidApp
+import uz.bozorgo.core.di.ImageLoaderEntryPoint
 
 /**
  * BozorGo ilovasi.
@@ -67,12 +64,6 @@ class BozorGoApp : Application() {
         }
 
         manager.createNotificationChannels(listOf(orders, promo))
-    }
-
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface ImageLoaderEntryPoint {
-        fun imageLoader(): ImageLoader
     }
 
     companion object {
