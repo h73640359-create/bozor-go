@@ -7,6 +7,12 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: read
+
 concurrency:
   group: android-${{ github.ref }}
   cancel-in-progress: true
@@ -53,40 +59,23 @@ jobs:
           set -o pipefail
           ./gradlew assembleDebug --stacktrace 2>&1 | tee assemble-debug.log
 
-      # Jurnallar artefakt sifatida ham saqlanadi (gradle chiqishi uzun bo'lishi mumkin)
-      - name: Xatolik jurnalini chiqarish
+      # Muvaffaqiyatsiz yig'ish jurnalini shu branchga yozib qo'yamiz
+      # (GitHub Actions loglarini tashqaridan o'qib bo'lmaganda tashxis uchun).
+      - name: Yig'ish jurnalini saqlash
         if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            let body = ':x: **Android CI: xatolik**\n';
-            for (const file of ['unit-tests.log', 'assemble-debug.log']) {
-              if (!fs.existsSync(file)) continue;
-              const text = fs.readFileSync(file, 'utf8');
-              const lines = text.split('\n');
-              const tail = lines.slice(-500).join('\n');
-              body += `\n\n### ${file} (oxirgi 500 qator)\n\n\`\`\`\n${tail}\n\`\`\`\n`;
-            }
-            body = body.length > 60000 ? body.slice(-60000) : body;
-            if (context.payload.pull_request) {
-              await github.rest.issues.createComment({
-                issue_number: context.payload.pull_request.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body,
-              });
-            } else {
-              core.info(body);
-            }
-
-      - name: APK artefakti
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: app/build/outputs/apk/debug/app-debug.apk
-          if-no-files-found: error
-          retention-days: 30
+        run: |
+          mkdir -p ci-logs
+          [ -f unit-tests.log ] && cp unit-tests.log ci-logs/unit-tests.log || true
+          [ -f assemble-debug.log ] && cp assemble-debug.log ci-logs/assemble-debug.log || true
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ci-logs
+          if git diff --cached --quiet; then
+            echo "Jurnal o'zgarmagan"
+          else
+            git commit -m "CI: yig'ish jurnali (run $GITHUB_RUN_NUMBER)"
+            git push origin HEAD:"${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+          fi
 
       - name: Jurnallar va test hisobotlari (muvaffaqiyatsiz bo'lsa)
         if: failure()
