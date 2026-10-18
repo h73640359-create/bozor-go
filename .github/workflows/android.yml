@@ -66,22 +66,24 @@ jobs:
         run: |
           python3 - <<'PY'
           import pathlib, re
+          noise = ("public inline fun", "public fun ", "defined in kotlin", "candidates is applicable",
+                   "None of the following functions is suitable")
           pattern = re.compile(r'(e: |> Task .*FAILED|.*AAPT.*|.*: error:.*|.*Unresolved reference.*|.*Execution failed.*|.*Caused by.*)', re.I)
           for name in ("unit-tests.log", "assemble-debug.log"):
               path = pathlib.Path(name)
               if not path.exists():
                   continue
               lines = [l.rstrip() for l in path.read_text(errors="ignore").splitlines()]
-              picked = [l.strip() for l in lines if pattern.search(l)]
+              picked = [l.strip() for l in lines
+                        if pattern.search(l) and not any(n in l for n in noise)]
               if not picked:
                   picked = [l.strip() for l in lines if "FAILED" in l or "error" in l.lower()]
               print(f"## {name}: jami {len(picked)} ta xatolik qatori")
-              chunk = 6
-              for index in range(0, min(len(picked), 48), chunk):
-                  group = picked[index:index + chunk]
-                  text = " // ".join(group)
+              chunk = 8
+              for index in range(0, min(len(picked), 64), chunk):
+                  text = " // ".join(picked[index:index + chunk])
                   text = text.replace("%", "%25").replace("\r", "%0D")
-                  print("::error::" + text[:900])
+                  print("::error::" + text[:1200])
           PY
 
       - name: Jurnallar va test hisobotlari (muvaffaqiyatsiz bo'lsa)

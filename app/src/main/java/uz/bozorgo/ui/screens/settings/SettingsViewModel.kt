@@ -128,10 +128,8 @@ class SettingsViewModel @Inject constructor(
 
     private fun refreshCacheSize() {
         viewModelScope.launch {
-            val size = withContext(Dispatchers.IO) {
-                val file = imageLoader.diskCache?.directory
-                if (file == null) 0L else sizeOfDirectory(file)
-            }
+            // DiskCache hajmini Okio orqali emas, Coil'ning o'z hisobidan olamiz
+            val size = withContext(Dispatchers.IO) { imageLoader.diskCache?.size ?: 0L }
             _cacheSize.value = humanReadableSize(size)
         }
     }
@@ -140,12 +138,6 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             _catalogCount.value = runCatching { productRepository.countTotal() }.getOrDefault(0)
         }
-    }
-
-    private fun sizeOfDirectory(directory: java.io.File): Long {
-        var size = 0L
-        directory.walkTopDown().forEach { if (it.isFile) size += it.length() }
-        return size
     }
 
     private fun Context.packageInfo(): android.content.pm.PackageInfo =

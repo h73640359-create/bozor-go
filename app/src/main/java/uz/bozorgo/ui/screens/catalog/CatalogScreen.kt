@@ -411,7 +411,8 @@ private fun FilterSheetContent(
     val range = state.priceRange
     var sliderValues by remember(state.filter.minPrice, state.filter.maxPrice, range) {
         mutableStateOf(
-            (state.filter.minPrice ?: range.start)..(state.filter.maxPrice ?: range.endInclusive),
+            (state.filter.minPrice ?: range.start).toFloat()..
+                (state.filter.maxPrice ?: range.endInclusive).toFloat(),
         )
     }
 
@@ -433,17 +434,17 @@ private fun FilterSheetContent(
         )
         Text(
             text = "${
-                MoneyFormatter.formatUzs(sliderValues.start)
-            } — ${MoneyFormatter.formatUzs(sliderValues.endInclusive)}",
+                MoneyFormatter.formatUzs(sliderValues.start.toDouble())
+            } — ${MoneyFormatter.formatUzs(sliderValues.endInclusive.toDouble())}",
             style = MaterialTheme.typography.bodySmall,
             color = BozorGoColors.TextSecondary,
         )
         RangeSlider(
             value = sliderValues,
             onValueChange = { sliderValues = it },
-            valueRange = range.start..range.endInclusive,
+            valueRange = range.start.toFloat()..range.endInclusive.toFloat(),
             onValueChangeFinished = {
-                onPriceRangeChange(sliderValues.start, sliderValues.endInclusive)
+                onPriceRangeChange(sliderValues.start.toDouble(), sliderValues.endInclusive.toDouble())
             },
         )
 

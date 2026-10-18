@@ -104,7 +104,7 @@ private fun OrderSuccessScreen(
                     )
                     InfoLine(
                         label = stringResource(R.string.orders_address),
-                        value = order.deliveryAddress.fullAddress,
+                        value = order.addressText,
                     )
                     InfoLine(
                         label = stringResource(R.string.orders_payment),

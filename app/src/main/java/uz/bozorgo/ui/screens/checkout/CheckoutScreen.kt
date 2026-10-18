@@ -144,7 +144,7 @@ private fun CheckoutScreen(
                                 null
                             },
                             singleLine = true,
-                            keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
                                 keyboardType = KeyboardType.Phone,
                             ),
                             shape = RoundedCornerShape(12.dp),
