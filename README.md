@@ -14,22 +14,29 @@ PostgreSQL/Express backend va admin paneli bilan.
 
 | Tekshiruv | Natija |
 |---|---|
-| GitHub Actions: `./gradlew testDebugUnitTest` | ✅ muvaffaqiyatli |
+| GitHub Actions: `./gradlew testDebugUnitTest` | ✅ muvaffaqiyatli (run **39133266713**) |
 | GitHub Actions: `./gradlew assembleDebug` | ✅ muvaffaqiyatli |
-| APK artefakti (`app-debug`) | ✅ 20,7 MB — `app/build/outputs/apk/debug/app-debug.apk` |
-| Katalog: 1000 ta noyob mahsulot | ✅ 63 ta tekshiruv + unit testlar |
+| APK artefakti (`app-debug`) | ✅ 22 019 247 bayt (21,0 MB) — `app/build/outputs/apk/debug/app-debug.apk` |
+| APK ichidagi rasmlar (CI tekshiruvi) | ✅ 1000 mahsulot + 15 kategoriya + 15 zaxira + 5 banner rasmi |
+| Katalog: 1000 ta noyob mahsulot | ✅ 71 ta tekshiruv (`--with-images`) + unit testlar |
+| Rasmlar unit testlari (`ImageAssetsTest`) | ✅ 9 ta test (fayl mavjudligi, WebP, ID bo'yicha bog'lash, takrorlanish) |
 | Backend testlari (`cd server && npm test`) | ✅ 14 ta test |
 
 APK **faqat GitHub Actions'da** yig'iladi (loyihada JDK/Android SDK shart).
 Havola: **GitHub → Actions → oxirgi muvaffaqiyatli "Android" ishi → Artifacts → `app-debug`**.
-Debug paket nomi: `uz.bozorgo.debug`.
+Debug paket nomi: `uz.bozorgo.debug`, artefakt saqlanadi 2026-11-17 gacha.
+
+**Rasmlar:** 1000 ta mahsulot rasmi, 15 ta kategoriya rasmi va 15 ta kategoriyaga mos zaxira
+rasm APK ichidagi `assets/` dan yuklanadi — internet talab qilmaydi, o'lik havolalar yo'q.
+Batafsil: [docs/CATALOG.md](docs/CATALOG.md) bo'limi "Rasmlar".
 
 ## 1. Loyiha tarkibi
 
 ```
 bozor-go/
 ├── app/                      # Android ilovasi (Kotlin, Compose, Material 3)
-│   └── src/main/assets/      # seed JSON (seed/) + 1000 ta mahsulot rasmi (products/)
+│   └── src/main/assets/      # seed JSON (seed/) + rasmlar: products/, categories/,
+│                             # fallback/, banners/ (barchasi WebP)
 ├── data/                     # katalog manbasi (generatorlar, JSON, rasmlar)
 │   ├── catalog.json          # 1000 ta noyob mahsulot
 │   ├── categories.json       # 15 ta kategoriya / 86 ta kichik bo'lim
