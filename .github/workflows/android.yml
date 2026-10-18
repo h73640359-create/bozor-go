@@ -1,0 +1,216 @@
+name: Android
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Test va debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Kodni olish
+        uses: actions/checkout@v4
+
+      - name: JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Katalog seedini tekshirish (1000+ mahsulot)
+        run: python3 data/scripts/validate_catalog.py --with-images
+
+      - name: local.properties tayyorlash
+        # API_BASE_URL bo'sh bo'lsa ilova to'liq oflayn (lokal baza) rejimida yig'iladi.
+        # Real server uchun repositoriyga API_BASE_URL sirini qo'shing.
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> local.properties
+
+      - name: Gradle wrapper huquqlari
+        run: chmod +x ./gradlew
+
+      - name: Unit testlar
+        id: unit_tests
+        run: |
+          set -o pipefail
+          ./gradlew testDebugUnitTest --stacktrace 2>&1 | tee unit-tests.log
+
+      - name: Debug APK yig'ish
+        id: assemble
+        run: |
+          set -o pipefail
+          ./gradlew assembleDebug --stacktrace 2>&1 | tee assemble-debug.log
+
+      # APK ichida rasmlar haqiqatan borligini tekshirish: katalogdagi har bir
+      # mahsulotning rasm fayli APK ichida bo'lishi shart (jim o'tib ketmaydi).
+      - name: APK ichidagi rasmlarni tekshirish
+        run: |
+          python3 - <<'PY'
+          import json, sys, zipfile
+
+          APK = "app/build/outputs/apk/debug/app-debug.apk"
+          try:
+              z = zipfile.ZipFile(APK)
+          except FileNotFoundError:
+              print("::error::APK topilmadi: " + APK)
+              sys.exit(1)
+
+          names = set(z.namelist())
+          seed = json.loads(z.read("assets/seed/catalog.json"))
+          products = seed["products"]
+
+          # Katalogdagi yo'llar assets/ papkasiga nisbiy, APK ichida esa
+          # "assets/<yo'l>" shaklida saqlanadi.
+          referenced = sorted({p["image"] for p in products if p.get("image")})
+          entry = {path: "assets/" + path for path in referenced}
+          missing = [path for path in referenced if entry[path] not in names]
+          photos = [path for path in referenced if "__" in path]
+          drawings = [path for path in referenced if "__" not in path]
+
+          image_bytes = sum(
+              z.getinfo(entry[p]).file_size for p in referenced if entry[p] in names
+          )
+          apk_bytes = sum(i.file_size for i in z.infolist())
+
+          print(f"Mahsulotlar         : {len(products)}")
+          print(f"Foto rasmlar        : {len(photos)} ta (kichik bo'limlar bo'yicha)")
+          print(f"Chizma illustratsiya: {len(drawings)} ta")
+          print(f"Rasmlar hajmi       : {image_bytes / 1024 / 1024:.2f} MB")
+          print(f"APK hajmi           : {apk_bytes / 1024 / 1024:.1f} MB")
+
+          problems = []
+          if missing:
+              problems.append(f"APK ichida {len(missing)} ta rasm yo'q, masalan: {missing[:5]}")
+          if not referenced:
+              problems.append("Katalogda hech qanday rasm ko'rsatilmagan")
+          for path in referenced:
+              if entry[path] in names and z.getinfo(entry[path]).file_size < 500:
+                  problems.append(f"Bo'sh/juda kichik rasm: {path}")
+          for seed_file in ("assets/seed/catalog.json", "assets/seed/categories.json"):
+              if seed_file not in names:
+                  problems.append(f"APK ichida seed fayli yo'q: {seed_file}")
+
+          for problem in problems:
+              print("::error::" + problem)
+          sys.exit(1 if problems else 0)
+          PY
+
+      - name: APK artefakti
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      # Muvaffaqiyatsiz yig'ish xatolarini annotatsiya sifatida chiqarish
+      # (Actions jurnali tashqaridan o'qilmagani uchun; annotatsiya limiti 10 ta).
+      - name: Xatoliklarni annotatsiya qilish
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import pathlib, re
+          noise = ("public inline fun", "public fun ", "public final fun", "defined in kotlin")
+          pattern = re.compile(r'(e: |> Task .*FAILED|.*AAPT.*|.*: error:.*|.*Unresolved reference.*|.*Execution failed.*|.*Caused by.*|FAILED$|AssertionError|ComparisonFailure|expected:|but was:|java\\.lang\\.|org\\.junit\\.|Tests? failed)', re.I)
+          for name in ("unit-tests.log", "assemble-debug.log"):
+              path = pathlib.Path(name)
+              if not path.exists():
+                  continue
+              lines = [l.rstrip() for l in path.read_text(errors="ignore").splitlines()]
+              picked = []
+              for raw in lines:
+                  line = raw.strip()
+                  if line.startswith("e: "):
+                      picked.append(line)
+                  elif "defined in kotlin" in line or line.startswith("public ") or line.startswith("w: "):
+                      continue
+                  elif pattern.search(line):
+                      picked.append(line)
+              if not picked:
+                  picked = [l.strip() for l in lines if "FAILED" in l or "error" in l.lower()]
+              print(f"## {name}: jami {len(picked)} ta xatolik qatori")
+              chunk = 8
+              for index in range(0, min(len(picked), 64), chunk):
+                  text = " // ".join(picked[index:index + chunk])
+                  text = text.replace("%", "%25").replace("\r", "%0D")
+                  print("::error::" + text[:1200])
+          PY
+
+      - name: Jurnallar va test hisobotlari (muvaffaqiyatsiz bo'lsa)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            app/build/reports/tests
+            unit-tests.log
+            assemble-debug.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+  release:
+    name: Imzolangan release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: build
+    # Faqat v* teg qo'yilganda va imzolash sirlari mavjud bo'lganda ishlaydi.
+    if: startsWith(github.ref, 'refs/tags/v') && vars.ENABLE_RELEASE_BUILD == 'true'
+
+    steps:
+      - name: Kodni olish
+        uses: actions/checkout@v4
+
+      - name: JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Imzolash kalitini tiklash
+        # Kerakli sirlarni qo'shish tartibi docs/CI.md faylida.
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > "$RUNNER_TEMP/bozorgo.jks"
+
+      - name: local.properties tayyorlash
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> local.properties
+          echo "KEYSTORE_FILE=$RUNNER_TEMP/bozorgo.jks" >> local.properties
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> local.properties
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
+
+      - name: Gradle wrapper huquqlari
+        run: chmod +x ./gradlew
+
+      - name: Release APK yig'ish
+        run: ./gradlew assembleRelease --stacktrace
+
+      - name: Release artefaktlari
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: |
+            app/build/outputs/apk/release/app-release.apk
+            app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: error
+          retention-days: 90

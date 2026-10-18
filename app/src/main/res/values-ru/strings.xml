@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Rus tilidagi tarjimalar (kelajakda to'liq lokalizatsiya uchun asos).
+  Tarjimasi yo'q satrlar avtomatik ravishda asosiy (o'zbek) fayldan olinadi.
+-->
+<resources>
+    <string name="app_name">BozorGo</string>
+    <string name="app_tagline">Интернет-магазин</string>
+
+    <string name="nav_home">Главная</string>
+    <string name="nav_catalog">Каталог</string>
+    <string name="nav_cart">Корзина</string>
+    <string name="nav_orders">Заказы</string>
+    <string name="nav_profile">Профиль</string>
+
+    <string name="home_delivery_to">Доставка</string>
+    <string name="home_change_address">Изменить адрес</string>
+    <string name="home_search_placeholder">Поиск товаров</string>
+    <string name="home_categories">Категории</string>
+    <string name="home_popular">Популярные товары</string>
+    <string name="home_new">Новинки</string>
+    <string name="home_deals">Товары со скидкой</string>
+    <string name="home_daily">Продукты и товары на каждый день</string>
+    <string name="home_recommended">Рекомендуемые</string>
+    <string name="home_favorites">Избранное</string>
+
+    <string name="common_ok">Хорошо</string>
+    <string name="common_cancel">Отмена</string>
+    <string name="common_retry">Повторить</string>
+    <string name="common_loading">Загрузка…</string>
+    <string name="common_error">Произошла ошибка</string>
+    <string name="common_save">Сохранить</string>
+    <string name="common_delete">Удалить</string>
+    <string name="common_edit">Изменить</string>
+    <string name="common_add">Добавить</string>
+    <string name="common_back">Назад</string>
+    <string name="common_search">Поиск</string>
+    <string name="common_all">Все</string>
+    <string name="common_apply">Применить</string>
+    <string name="common_reset">Сбросить</string>
+    <string name="common_see_all">Смотреть все</string>
+    <string name="common_som">сум</string>
+    <string name="common_free">Бесплатно</string>
+
+    <string name="product_add_to_cart">В корзину</string>
+    <string name="product_added_to_cart">Добавлено в корзину</string>
+    <string name="product_go_to_cart">Перейти в корзину</string>
+    <string name="product_out_of_stock">Нет в наличии</string>
+    <string name="product_description">Описание</string>
+    <string name="product_details">Характеристики</string>
+    <string name="product_similar">Похожие товары</string>
+    <string name="product_reviews">Отзывы</string>
+    <string name="product_quantity">Количество</string>
+
+    <string name="catalog_title">Каталог</string>
+    <string name="catalog_filters">Фильтры</string>
+    <string name="catalog_sort">Сортировка</string>
+    <string name="catalog_sort_popular">По популярности</string>
+    <string name="catalog_sort_price_asc">Сначала дешёвые</string>
+    <string name="catalog_sort_price_desc">Сначала дорогие</string>
+    <string name="catalog_sort_name">По названию</string>
+    <string name="catalog_sort_new">Новинки</string>
+    <string name="catalog_only_discount">Только со скидкой</string>
+    <string name="catalog_in_stock_only">Только в наличии</string>
+
+    <string name="search_title">Поиск</string>
+    <string name="search_hint">Товар или категория</string>
+    <string name="search_history">История поиска</string>
+    <string name="search_not_found_title">Ничего не найдено</string>
+
+    <string name="cart_title">Корзина</string>
+    <string name="cart_empty_title">Корзина пуста</string>
+    <string name="cart_items_sum">Товары</string>
+    <string name="cart_discount">Скидка</string>
+    <string name="cart_delivery">Доставка</string>
+    <string name="cart_total">Итого</string>
+    <string name="cart_checkout">Оформить заказ</string>
+
+    <string name="checkout_title">Оформление заказа</string>
+    <string name="checkout_name_hint">Имя и фамилия</string>
+    <string name="checkout_address">Адрес доставки</string>
+    <string name="checkout_payment">Способ оплаты</string>
+    <string name="checkout_pay_cash">Наличными при доставке</string>
+    <string name="checkout_pay_card">Банковской картой</string>
+    <string name="checkout_place_order">Подтвердить заказ</string>
+    <string name="checkout_success_title">Заказ принят</string>
+
+    <string name="orders_title">Заказы</string>
+    <string name="orders_empty_title">Заказов нет</string>
+    <string name="order_status_created">Заказ принят</string>
+    <string name="order_status_confirmed">Подтверждён</string>
+    <string name="order_status_preparing">Готовится</string>
+    <string name="order_status_courier">Передан курьеру</string>
+    <string name="order_status_delivering">Доставляется</string>
+    <string name="order_status_delivered">Доставлен</string>
+    <string name="order_status_cancelled">Отменён</string>
+
+    <string name="profile_title">Профиль</string>
+    <string name="profile_guest">Гость</string>
+    <string name="profile_login">Войти</string>
+    <string name="profile_logout">Выйти</string>
+    <string name="profile_orders">История заказов</string>
+    <string name="profile_addresses">Сохранённые адреса</string>
+    <string name="profile_favorites">Избранные товары</string>
+    <string name="profile_notifications">Уведомления</string>
+    <string name="profile_help">Помощь</string>
+    <string name="profile_privacy">Политика конфиденциальности</string>
+    <string name="profile_terms">Условия использования</string>
+    <string name="profile_language">Язык</string>
+    <string name="profile_about">О приложении</string>
+
+    <string name="auth_title">Вход по номеру телефона</string>
+    <string name="auth_phone_label">Номер телефона</string>
+    <string name="auth_code_label">Код подтверждения</string>
+    <string name="auth_send_code">Отправить код</string>
+    <string name="auth_verify">Подтвердить</string>
+
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_empty_title">Избранное пусто</string>
+
+    <string name="error_network_title">Нет подключения к интернету</string>
+    <string name="error_server_title">Не удалось связаться с сервером</string>
+    <string name="demo_notice">Демо-данные. Это не реальные цены магазина.</string>
+
+    <!-- Каталог, поиск, заказ, профиль, настройки -->
+    <string name="channel_orders_name">Заказы</string>
+    <string name="channel_orders_description">Уведомления о статусе заказа</string>
+    <string name="channel_promo_name">Акции</string>
+    <string name="channel_promo_description">Скидки и новинки</string>
+    <string name="home_banners">Акции</string>
+    <string name="common_close">Закрыть</string>
+    <string name="common_yes">Да</string>
+    <string name="common_no">Нет</string>
+    <string name="common_continue">Продолжить</string>
+    <string name="common_confirm">Подтвердить</string>
+    <string name="common_off">скидка</string>
+    <string name="product_left_count">Осталось всего %1$d шт.</string>
+    <string name="product_delivery_info">Доставка</string>
+    <string name="product_delivery_info_text">По Ташкенту доставка бесплатна при заказе от 100 000 сум. Условия доставки в другие регионы уточняются оператором. Данные ориентировочные (демо).</string>
+    <string name="product_reviews_count">%1$d отзывов</string>
+    <string name="product_select_option">Выберите %1$s</string>
+    <string name="product_brand">Бренд: %1$s</string>
+    <string name="product_sku">ID: %1$s</string>
+    <string name="product_category">Категория: %1$s</string>
+    <string name="product_unit_label">Единица: %1$s</string>
+    <string name="product_in_stock">В наличии</string>
+    <string name="product_added_to_favorites">Добавлено в избранное</string>
+    <string name="product_removed_from_favorites">Удалено из избранного</string>
+    <string name="product_demo_reviews">Отзывы и рейтинги — демо-данные.</string>
+    <string name="catalog_sort_discount">По скидке</string>
+    <string name="catalog_price_range">Диапазон цен</string>
+    <string name="catalog_products_count">%1$d товаров</string>
+    <string name="catalog_empty">В этом разделе товары не найдены</string>
+    <string name="catalog_load_more">Загрузить ещё</string>
+    <string name="catalog_subcategories">Подкатегории</string>
+    <string name="search_clear_history">Очистить историю</string>
+    <string name="search_suggestions">Подсказки</string>
+    <string name="search_results_count">%1$d результатов</string>
+    <string name="search_not_found_subtitle">Измените запрос или воспользуйтесь подсказками ниже</string>
+    <string name="search_popular">Популярные запросы</string>
+    <string name="search_empty_history">Поиск ещё не выполнялся</string>
+    <string name="cart_empty_subtitle">Выберите товары на главной и добавьте в корзину</string>
+    <string name="cart_go_shopping">Начать покупки</string>
+    <string name="cart_items">Товары (%1$d)</string>
+    <string name="cart_remove_item">Удалить из корзины</string>
+    <string name="cart_clear">Очистить корзину</string>
+    <string name="cart_clear_confirm">Очистить корзину?</string>
+    <string name="cart_stock_error">Товара «%1$s» недостаточно на складе (доступно: %2$d)</string>
+    <string name="cart_free_delivery_hint">Добавьте ещё на %1$s для бесплатной доставки</string>
+    <string name="checkout_recipient">Получатель</string>
+    <string name="checkout_phone_hint">+998 __ ___ __ __</string>
+    <string name="checkout_add_address">Добавить адрес</string>
+    <string name="checkout_delivery_method">Способ доставки</string>
+    <string name="checkout_delivery_standard">Стандартная (1–2 дня)</string>
+    <string name="checkout_delivery_express">Экспресс (2–4 часа)</string>
+    <string name="checkout_delivery_pickup">Самовывоз</string>
+    <string name="checkout_comment">Комментарий к заказу</string>
+    <string name="checkout_comment_hint">Дополнительная информация для курьера</string>
+    <string name="checkout_summary">Детали заказа</string>
+    <string name="checkout_success_subtitle">Оператор скоро подтвердит ваш заказ</string>
+    <string name="checkout_order_number">Номер заказа</string>
+    <string name="checkout_order_total">Сумма заказа</string>
+    <string name="checkout_back_home">На главную</string>
+    <string name="checkout_error_name">Введите имя</string>
+    <string name="checkout_error_phone">Введите корректный номер телефона</string>
+    <string name="checkout_error_address">Выберите адрес</string>
+    <string name="checkout_error_server">Не удалось отправить заказ на сервер. Попробуйте позже.</string>
+    <string name="checkout_offline_hint">Сервер не подключён. Заказ сохраняется на устройстве и будет отправлен при появлении интернета.</string>
+    <string name="orders_empty_subtitle">Оформите первый заказ, и он появится здесь</string>
+    <string name="orders_details">Детали заказа</string>
+    <string name="orders_cancel">Отменить заказ</string>
+    <string name="orders_cancel_confirm">Отменить заказ?</string>
+    <string name="orders_repeat">Повторить заказ</string>
+    <string name="orders_items_count">%1$d товаров</string>
+    <string name="orders_status">Статус</string>
+    <string name="orders_created_at">Оформлен</string>
+    <string name="orders_payment">Оплата</string>
+    <string name="orders_address">Адрес</string>
+    <string name="profile_guest_hint">Войдите, чтобы оформлять заказы</string>
+    <string name="profile_register">Регистрация</string>
+    <string name="profile_logout_confirm">Выйти из аккаунта?</string>
+    <string name="profile_version">Версия %1$s (%2$d)</string>
+    <string name="profile_edit">Редактировать профиль</string>
+    <string name="profile_demo_notice">Это демо-приложение: цены, бренды и рейтинги — примеры.</string>
+    <string name="auth_code_sent">Код подтверждения отправлен (демо-режим: любой 6-значный код)</string>
+    <string name="auth_demo_warning">Настоящий SMS-провайдер не подключён. Подтверждение работает в демо-режиме — подойдёт любой 6-значный код.</string>
+    <string name="auth_error_phone">Введите номер правильно (+998XXXXXXXXX)</string>
+    <string name="auth_error_code">Код должен состоять из 6 цифр</string>
+    <string name="address_title">Адреса</string>
+    <string name="address_add">Новый адрес</string>
+    <string name="address_label">Название адреса (например, Дом)</string>
+    <string name="address_city">Город</string>
+    <string name="address_district">Район</string>
+    <string name="address_street">Улица</string>
+    <string name="address_house">Номер дома</string>
+    <string name="address_apartment">Квартира</string>
+    <string name="address_comment">Комментарий</string>
+    <string name="address_set_default">Основной адрес</string>
+    <string name="address_empty">Адреса не добавлены</string>
+    <string name="address_delete_confirm">Удалить адрес?</string>
+    <string name="address_default_badge">Основной</string>
+    <string name="favorites_empty_subtitle">Нажмите на значок сердечка в карточке товара</string>
+    <string name="error_network_text">Приложение продолжает работать с локальной базой данных.</string>
+    <string name="error_server_text">Адрес сервера не задан или сервер не отвечает. Все данные хранятся на устройстве.</string>
+    <string name="error_unknown">Неизвестная ошибка. Попробуйте снова.</string>
+    <string name="error_empty_title">Данные не найдены</string>
+    <string name="error_retry">Повторить</string>
+    <string name="demo_badge">ДЕМО</string>
+    <string name="help_title">Помощь</string>
+    <string name="help_faq_title">Частые вопросы</string>
+    <string name="help_faq_1_title">Как оформить заказ?</string>
+    <string name="help_faq_1_text">Добавьте товары в корзину, нажмите «Оформить заказ», заполните данные и подтвердите заказ.</string>
+    <string name="help_faq_2_title">Сколько стоит доставка?</string>
+    <string name="help_faq_2_text">При заказе от 100 000 сум доставка бесплатна, иначе — 15 000 сум.</string>
+    <string name="help_faq_3_title">Какие способы оплаты?</string>
+    <string name="help_faq_3_text">Настоящий платёжный провайдер не подключён, поэтому оплата картой работает в демо-режиме и не переводит реальные деньги.</string>
+    <string name="help_contact_title">Контакты</string>
+    <string name="help_contact_text">Вопросы: support@bozorgo.example (пример адреса, не реальная почта).</string>
+    <string name="privacy_title">Политика конфиденциальности</string>
+    <string name="privacy_text">BozorGo использует данные пользователя только для оформления и доставки заказов. Номер телефона и адрес хранятся на устройстве и, если сервер подключён, на сервере. Данные не передаются и не продаются третьим лицам. Это демо-приложение: оно не принимает и не хранит реальные платёжные данные.</string>
+    <string name="terms_title">Условия использования</string>
+    <string name="terms_text">BozorGo — открытый демо-проект. Товары, цены, бренды, рейтинги и отзывы в каталоге — примеры, а не реальное торговое предложение. Используя приложение, вы соглашаетесь с этими условиями.</string>
+    <string name="info_help_title">Помощь</string>
+    <string name="info_help_body">BozorGo — демонстрационное приложение интернет-магазина. Все товары, цены, скидки и рейтинги в каталоге являются тестовыми данными.
+
+1. Как оформить заказ?
+Добавьте товары в корзину, нажмите «Оформить заказ», выберите адрес доставки и способ оплаты, затем подтвердите заказ. Подтверждённому заказу присваивается номер, и он сохраняется в разделе «Заказы».
+
+2. Стоимость доставки
+Стандартная доставка — 15 000 сум, при заказе от 100 000 сум — бесплатно. Экспресс-доставка — 25 000 сум, самовывоз — бесплатно. Значения демонстрационные.
+
+3. Способы оплаты
+Наличными курьеру или картой. Настоящий платёжный провайдер не подключён, поэтому оплата картой работает в демо-режиме и не переводит реальные деньги.
+
+4. Без интернета
+Товары хранятся в локальной базе устройства, поэтому каталог, поиск и корзина работают офлайн. При подключении сервера заказы синхронизируются.
+
+5. Контакты
+support@bozorgo.example — демонстрационный адрес, не реальная почта.</string>
+    <string name="info_privacy_title">Политика конфиденциальности</string>
+    <string name="info_privacy_body">BozorGo использует данные пользователя только для оформления и доставки заказов.
+
+Какие данные хранятся: имя, номер телефона, адреса доставки, корзина и история заказов, избранные товары. Они хранятся на устройстве (база Room и DataStore); если сервер подключён, заказы также отправляются на сервер.
+
+Платёжные данные в приложении не сохраняются: оплата картой работает в демо-режиме, реальные переводы не выполняются, данные карты не запрашиваются.
+
+Данные не передаются и не продаются третьим лицам. При удалении приложения данные на устройстве удаляются.
+
+Это демо-проект, поэтому не рекомендуется вводить реальные персональные данные.</string>
+    <string name="info_terms_title">Условия использования</string>
+    <string name="info_terms_body">BozorGo — открытый демонстрационный проект. Используя приложение, вы соглашаетесь со следующим:
+
+1. Товары, бренды, описания, цены, скидки, рейтинги и отзывы в каталоге — демонстрационные данные, а не реальное торговое предложение.
+2. Оформление заказа не создаёт реального договора и не обязывает поставлять товар.
+3. Оплата работает в демо-режиме: реальные переводы денежных средств не выполняются.
+4. Если адрес сервера (API_BASE_URL) не задан, приложение работает полностью офлайн.
+5. Приложение предоставляется «как есть»; авторы не отвечают за точность демонстрационных данных.</string>
+    <string name="info_last_updated">Текст подготовлен для демо-версии (1.0.0).</string>
+    <string name="order_success_title">Заказ принят</string>
+    <string name="order_success_subtitle">Заказ сохранён. Отслеживать статус можно в разделе «Заказы».</string>
+    <string name="order_success_number">Номер заказа</string>
+    <string name="order_success_total">Итого</string>
+    <string name="order_success_track">Отслеживать заказ</string>
+    <string name="order_success_home">На главную</string>
+    <string name="profile_saved">Данные сохранены</string>
+    <string name="profile_edit_hint">Имя и номер телефона хранятся только на этом устройстве.</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_language_system">Системный язык</string>
+    <string name="settings_language_restart">Язык изменён — изменения применены сразу</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_system">Системная тема</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_data">Данные</string>
+    <string name="settings_clear_history">Очистить историю поиска</string>
+    <string name="settings_history_cleared">История поиска очищена</string>
+    <string name="settings_clear_cache">Очистить кеш изображений</string>
+    <string name="settings_clear_cache_confirm">Удалить кеш загруженных изображений? Они снова загрузятся при наличии интернета.</string>
+    <string name="settings_reseed">Перезагрузить каталог</string>
+    <string name="settings_reseed_hint">В базе: %1$d товаров</string>
+    <string name="settings_about_title">О приложении</string>
+    <string name="settings_version">Версия</string>
+    <string name="settings_products">Товары</string>
+    <string name="settings_server">Сервер</string>
+    <string name="settings_server_connected">Подключён</string>
+    <string name="settings_server_offline">Офлайн-режим (сервер не настроен)</string>
+</resources>

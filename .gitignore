@@ -1,0 +1,48 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle-app.setting
+local.properties
+.kotlin/
+.caches/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+captures/
+.externalNativeBuild/
+.cxx/
+*.log
+
+# Build natijalari
+app/build/
+*.apk
+*.aab
+*.ap_
+
+# Imzolash
+*.jks
+*.keystore
+!debug.keystore
+
+# Mahalliy sozlamalar va sirlar (namuna fayllardan tashqari)
+local.properties
+.env
+.env.*
+server/.env
+!server/.env.example
+!local.properties.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python (katalog generatori)
+__pycache__/
+*.py[cod]
+.venv/
+venv/

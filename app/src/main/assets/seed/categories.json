@@ -1,0 +1,655 @@
+{
+ "categories": [
+  {
+   "id": "fruits-vegetables",
+   "name": "Meva va sabzavotlar",
+   "icon": "produce",
+   "color": "#4CAF50",
+   "productCount": 100,
+   "subcategories": [
+    {
+     "id": "fresh-fruits",
+     "name": "Yangi mevalar",
+     "icon": "apple",
+     "productCount": 43
+    },
+    {
+     "id": "fresh-vegetables",
+     "name": "Sabzavotlar",
+     "icon": "carrot",
+     "productCount": 33
+    },
+    {
+     "id": "greens",
+     "name": "Ko'katlar va ziravor o'tlar",
+     "icon": "leaf",
+     "productCount": 11
+    },
+    {
+     "id": "dried-fruits-nuts",
+     "name": "Quritilgan mevalar va yong'oqlar",
+     "icon": "nuts",
+     "productCount": 13
+    }
+   ]
+  },
+  {
+   "id": "meat-poultry-fish",
+   "name": "Go'sht, tovuq va baliq",
+   "icon": "butcher",
+   "color": "#E4572E",
+   "productCount": 70,
+   "subcategories": [
+    {
+     "id": "beef",
+     "name": "Mol go'shti",
+     "icon": "steak",
+     "productCount": 18
+    },
+    {
+     "id": "mutton",
+     "name": "Qo'y go'shti",
+     "icon": "steak",
+     "productCount": 12
+    },
+    {
+     "id": "poultry",
+     "name": "Tovuq, kurka va boshqa parranda",
+     "icon": "drumstick",
+     "productCount": 21
+    },
+    {
+     "id": "sausages",
+     "name": "Kolbasa va go'sht mahsulotlari",
+     "icon": "sausage",
+     "productCount": 11
+    },
+    {
+     "id": "fish",
+     "name": "Baliq va dengiz mahsulotlari",
+     "icon": "fish",
+     "productCount": 8
+    }
+   ]
+  },
+  {
+   "id": "dairy-eggs",
+   "name": "Sut mahsulotlari va tuxum",
+   "icon": "dairy",
+   "color": "#4A90D9",
+   "productCount": 70,
+   "subcategories": [
+    {
+     "id": "milk",
+     "name": "Sut",
+     "icon": "milk-carton",
+     "productCount": 14
+    },
+    {
+     "id": "yogurt-sour",
+     "name": "Qatiq, yogurt va kefir",
+     "icon": "yogurt-cup",
+     "productCount": 16
+    },
+    {
+     "id": "cheese",
+     "name": "Pishloq va tvorog",
+     "icon": "cheese",
+     "productCount": 15
+    },
+    {
+     "id": "butter-oil",
+     "name": "Sariyog' va yog'lar",
+     "icon": "butter",
+     "productCount": 8
+    },
+    {
+     "id": "cream",
+     "name": "Qaymoq",
+     "icon": "yogurt-cup",
+     "productCount": 5
+    },
+    {
+     "id": "eggs",
+     "name": "Tuxum",
+     "icon": "egg",
+     "productCount": 6
+    },
+    {
+     "id": "ice-cream",
+     "name": "Muzqaymoq",
+     "icon": "ice-cream",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "bakery-sweets",
+   "name": "Non, shirinliklar va pishiriqlar",
+   "icon": "bakery",
+   "color": "#C97B2E",
+   "productCount": 80,
+   "subcategories": [
+    {
+     "id": "bread",
+     "name": "Non va non mahsulotlari",
+     "icon": "bread",
+     "productCount": 20
+    },
+    {
+     "id": "pastry",
+     "name": "Pishiriqlar va somsa",
+     "icon": "samsa",
+     "productCount": 18
+    },
+    {
+     "id": "cakes",
+     "name": "Tortlar",
+     "icon": "cake",
+     "productCount": 11
+    },
+    {
+     "id": "chocolate-candy",
+     "name": "Shokolad va konfetlar",
+     "icon": "chocolate",
+     "productCount": 17
+    },
+    {
+     "id": "cookies",
+     "name": "Pechenye va vafli",
+     "icon": "cookie",
+     "productCount": 8
+    },
+    {
+     "id": "halva-sweets",
+     "name": "Xolva va sharqona shirinliklar",
+     "icon": "halva",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "beverages-water",
+   "name": "Ichimliklar va suv",
+   "icon": "drinks",
+   "color": "#1E88E5",
+   "productCount": 70,
+   "subcategories": [
+    {
+     "id": "water",
+     "name": "Suv",
+     "icon": "water-bottle",
+     "productCount": 10
+    },
+    {
+     "id": "juice",
+     "name": "Sharbat va nektarlar",
+     "icon": "juice-box",
+     "productCount": 14
+    },
+    {
+     "id": "carbonated",
+     "name": "Gazlangan ichimliklar",
+     "icon": "soda-bottle",
+     "productCount": 10
+    },
+    {
+     "id": "tea",
+     "name": "Choy",
+     "icon": "cup-hot",
+     "productCount": 13
+    },
+    {
+     "id": "coffee",
+     "name": "Qahva",
+     "icon": "cup-hot",
+     "productCount": 13
+    },
+    {
+     "id": "energy-sports",
+     "name": "Energetik va sport ichimliklari",
+     "icon": "can",
+     "productCount": 5
+    },
+    {
+     "id": "dairy-drinks",
+     "name": "Sutli ichimliklar",
+     "icon": "milk-carton",
+     "productCount": 5
+    }
+   ]
+  },
+  {
+   "id": "grocery-staples",
+   "name": "Oziq-ovqat, guruch, yog' va yormalar",
+   "icon": "grocery",
+   "color": "#8D6E63",
+   "productCount": 100,
+   "subcategories": [
+    {
+     "id": "rice",
+     "name": "Guruch",
+     "icon": "sack",
+     "productCount": 12
+    },
+    {
+     "id": "flour-pasta",
+     "name": "Un va makaron mahsulotlari",
+     "icon": "sack",
+     "productCount": 15
+    },
+    {
+     "id": "oil",
+     "name": "O'simlik yog'i",
+     "icon": "oil-bottle",
+     "productCount": 10
+    },
+    {
+     "id": "sugar-salt",
+     "name": "Shakar va tuz",
+     "icon": "sack",
+     "productCount": 8
+    },
+    {
+     "id": "cereals",
+     "name": "Yormalar",
+     "icon": "box",
+     "productCount": 11
+    },
+    {
+     "id": "canned",
+     "name": "Konservalar",
+     "icon": "can",
+     "productCount": 12
+    },
+    {
+     "id": "sauces",
+     "name": "Sous va ketchup",
+     "icon": "oil-bottle",
+     "productCount": 12
+    },
+    {
+     "id": "spices",
+     "name": "Ziravorlar",
+     "icon": "spice-jar",
+     "productCount": 12
+    },
+    {
+     "id": "legumes",
+     "name": "Dukkaklilar",
+     "icon": "sack",
+     "productCount": 8
+    }
+   ]
+  },
+  {
+   "id": "household-cleaning",
+   "name": "Uy-ro'zg'or va tozalash vositalari",
+   "icon": "cleaning",
+   "color": "#009688",
+   "productCount": 100,
+   "subcategories": [
+    {
+     "id": "laundry",
+     "name": "Kir yuvish vositalari",
+     "icon": "box",
+     "productCount": 16
+    },
+    {
+     "id": "dishwashing",
+     "name": "Idish yuvish vositalari",
+     "icon": "oil-bottle",
+     "productCount": 12
+    },
+    {
+     "id": "surface-cleaners",
+     "name": "Yuza tozalash vositalari",
+     "icon": "spray-bottle",
+     "productCount": 16
+    },
+    {
+     "id": "paper",
+     "name": "Qog'oz mahsulotlari",
+     "icon": "paper-roll",
+     "productCount": 14
+    },
+    {
+     "id": "trash-bags",
+     "name": "Axlat qoplari va qutilari",
+     "icon": "trash-bag",
+     "productCount": 10
+    },
+    {
+     "id": "home-care",
+     "name": "Uy parvarishi anjomlari",
+     "icon": "mop",
+     "productCount": 14
+    },
+    {
+     "id": "pest-control",
+     "name": "Hasharotlarga qarshi vositalar",
+     "icon": "spray-bottle",
+     "productCount": 8
+    },
+    {
+     "id": "air-freshener",
+     "name": "Havo yangilagichlar",
+     "icon": "air-freshener",
+     "productCount": 10
+    }
+   ]
+  },
+  {
+   "id": "personal-care",
+   "name": "Gigiyena va kosmetika",
+   "icon": "beauty",
+   "color": "#7E57C2",
+   "productCount": 80,
+   "subcategories": [
+    {
+     "id": "oral-care",
+     "name": "Og'iz bo'shlig'i parvarishi",
+     "icon": "toothbrush",
+     "productCount": 10
+    },
+    {
+     "id": "hair-care",
+     "name": "Soch parvarishi",
+     "icon": "shampoo-bottle",
+     "productCount": 16
+    },
+    {
+     "id": "body-care",
+     "name": "Tana parvarishi",
+     "icon": "shampoo-bottle",
+     "productCount": 14
+    },
+    {
+     "id": "skin-care",
+     "name": "Yuz parvarishi",
+     "icon": "cream-jar",
+     "productCount": 12
+    },
+    {
+     "id": "shaving",
+     "name": "Soqol olish",
+     "icon": "razor",
+     "productCount": 8
+    },
+    {
+     "id": "hygiene",
+     "name": "Shaxsiy gigiyena",
+     "icon": "soap-bar",
+     "productCount": 12
+    },
+    {
+     "id": "deodorants",
+     "name": "Dezodorantlar",
+     "icon": "deodorant",
+     "productCount": 8
+    }
+   ]
+  },
+  {
+   "id": "baby-products",
+   "name": "Bolalar mahsulotlari",
+   "icon": "baby",
+   "color": "#F48FB1",
+   "productCount": 50,
+   "subcategories": [
+    {
+     "id": "diapers",
+     "name": "Tagliklar",
+     "icon": "box",
+     "productCount": 9
+    },
+    {
+     "id": "baby-food",
+     "name": "Bolalar ovqati",
+     "icon": "baby-bottle",
+     "productCount": 13
+    },
+    {
+     "id": "baby-care",
+     "name": "Bolalar parvarishi",
+     "icon": "shampoo-bottle",
+     "productCount": 14
+    },
+    {
+     "id": "baby-bath",
+     "name": "Bolalar gigiyenasi",
+     "icon": "tub",
+     "productCount": 8
+    },
+    {
+     "id": "toys",
+     "name": "O'yinchoqlar",
+     "icon": "teddy",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "clothing-shoes",
+   "name": "Kiyim-kechak va poyabzal",
+   "icon": "fashion",
+   "color": "#5C6BC0",
+   "productCount": 80,
+   "subcategories": [
+    {
+     "id": "mens-clothing",
+     "name": "Erkaklar kiyimi",
+     "icon": "tshirt",
+     "productCount": 18
+    },
+    {
+     "id": "womens-clothing",
+     "name": "Ayollar kiyimi",
+     "icon": "dress",
+     "productCount": 19
+    },
+    {
+     "id": "kids-clothing",
+     "name": "Bolalar kiyimi",
+     "icon": "tshirt",
+     "productCount": 11
+    },
+    {
+     "id": "footwear",
+     "name": "Poyabzal",
+     "icon": "sneaker",
+     "productCount": 14
+    },
+    {
+     "id": "underwear-socks",
+     "name": "Ichki kiyim va paypoq",
+     "icon": "socks",
+     "productCount": 12
+    },
+    {
+     "id": "accessories",
+     "name": "Aksessuarlar",
+     "icon": "cap",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "phones-electronics",
+   "name": "Telefonlar va elektronika",
+   "icon": "tech",
+   "color": "#3949AB",
+   "productCount": 60,
+   "subcategories": [
+    {
+     "id": "phones",
+     "name": "Telefonlar va planshetlar",
+     "icon": "smartphone",
+     "productCount": 10
+    },
+    {
+     "id": "phone-accessories",
+     "name": "Telefon aksessuarlari",
+     "icon": "phone-case",
+     "productCount": 16
+    },
+    {
+     "id": "audio",
+     "name": "Audio texnika",
+     "icon": "headphones",
+     "productCount": 8
+    },
+    {
+     "id": "power",
+     "name": "Quvvatlovchi qurilmalar",
+     "icon": "power-bank",
+     "productCount": 8
+    },
+    {
+     "id": "small-appliances",
+     "name": "Kichik maishiy texnika",
+     "icon": "kettle",
+     "productCount": 10
+    },
+    {
+     "id": "computer-accessories",
+     "name": "Kompyuter aksessuarlari",
+     "icon": "mouse",
+     "productCount": 8
+    }
+   ]
+  },
+  {
+   "id": "kitchen-homeware",
+   "name": "Oshxona anjomlari va uy jihozlari",
+   "icon": "kitchen",
+   "color": "#D84315",
+   "productCount": 50,
+   "subcategories": [
+    {
+     "id": "cookware",
+     "name": "Idish-tovoq",
+     "icon": "pot",
+     "productCount": 14
+    },
+    {
+     "id": "kitchen-tools",
+     "name": "Oshxona anjomlari",
+     "icon": "knife",
+     "productCount": 12
+    },
+    {
+     "id": "tableware",
+     "name": "Dasturxon va idishlar",
+     "icon": "plate",
+     "productCount": 10
+    },
+    {
+     "id": "storage",
+     "name": "Saqlash va tartib",
+     "icon": "container",
+     "productCount": 8
+    },
+    {
+     "id": "home-textile",
+     "name": "Uy to'qimachiligi",
+     "icon": "blanket",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "sport-outdoor",
+   "name": "Sport va dam olish",
+   "icon": "sport",
+   "color": "#00897B",
+   "productCount": 40,
+   "subcategories": [
+    {
+     "id": "fitness",
+     "name": "Fitnes va trenajorlar",
+     "icon": "dumbbell",
+     "productCount": 12
+    },
+    {
+     "id": "outdoor-sport",
+     "name": "Sport turlari",
+     "icon": "ball",
+     "productCount": 10
+    },
+    {
+     "id": "bicycles",
+     "name": "Velosipedlar",
+     "icon": "bicycle",
+     "productCount": 6
+    },
+    {
+     "id": "camping",
+     "name": "Lager va sayohat",
+     "icon": "tent",
+     "productCount": 6
+    },
+    {
+     "id": "sport-accessories",
+     "name": "Sport aksessuarlari",
+     "icon": "backpack",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "pet-supplies",
+   "name": "Uy hayvonlari uchun mahsulotlar",
+   "icon": "pets",
+   "color": "#8BC34A",
+   "productCount": 30,
+   "subcategories": [
+    {
+     "id": "cat",
+     "name": "Mushuklar uchun",
+     "icon": "pet-bowl",
+     "productCount": 12
+    },
+    {
+     "id": "dog",
+     "name": "Itlar uchun",
+     "icon": "pet-bowl",
+     "productCount": 12
+    },
+    {
+     "id": "birds-other",
+     "name": "Qushlar va boshqa hayvonlar",
+     "icon": "pet-bowl",
+     "productCount": 6
+    }
+   ]
+  },
+  {
+   "id": "auto-other",
+   "name": "Avtomobil aksessuarlari va boshqa mahsulotlar",
+   "icon": "auto",
+   "color": "#546E7A",
+   "productCount": 20,
+   "subcategories": [
+    {
+     "id": "car-care",
+     "name": "Avtomobil parvarishi",
+     "icon": "oil-bottle",
+     "productCount": 8
+    },
+    {
+     "id": "car-accessories",
+     "name": "Avtomobil aksessuarlari",
+     "icon": "car-freshener",
+     "productCount": 8
+    },
+    {
+     "id": "stationery-other",
+     "name": "Kanselyariya va boshqa mahsulotlar",
+     "icon": "pen",
+     "productCount": 4
+    }
+   ]
+  }
+ ]
+}
