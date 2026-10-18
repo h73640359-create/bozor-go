@@ -77,12 +77,17 @@ jobs:
           seed = json.loads(z.read("assets/seed/catalog.json"))
           products = seed["products"]
 
+          # Katalogdagi yo'llar assets/ papkasiga nisbiy, APK ichida esa
+          # "assets/<yo'l>" shaklida saqlanadi.
           referenced = sorted({p["image"] for p in products if p.get("image")})
-          missing = [path for path in referenced if path not in names]
+          entry = {path: "assets/" + path for path in referenced}
+          missing = [path for path in referenced if entry[path] not in names]
           photos = [path for path in referenced if "__" in path]
           drawings = [path for path in referenced if "__" not in path]
 
-          image_bytes = sum(z.getinfo(p).file_size for p in referenced if p in names)
+          image_bytes = sum(
+              z.getinfo(entry[p]).file_size for p in referenced if entry[p] in names
+          )
           apk_bytes = sum(i.file_size for i in z.infolist())
 
           print(f"Mahsulotlar         : {len(products)}")
@@ -97,7 +102,7 @@ jobs:
           if not referenced:
               problems.append("Katalogda hech qanday rasm ko'rsatilmagan")
           for path in referenced:
-              if path in names and z.getinfo(path).file_size < 500:
+              if entry[path] in names and z.getinfo(entry[path]).file_size < 500:
                   problems.append(f"Bo'sh/juda kichik rasm: {path}")
           for seed_file in ("assets/seed/catalog.json", "assets/seed/categories.json"):
               if seed_file not in names:
