@@ -78,7 +78,6 @@ fun BozorGoApp(
                 BozorGoNavHost(
                     navController = navController,
                     snackbarHostState = snackbarHostState,
-                    cartBadgeCount = cartBadgeCount,
                     isOnline = isOnline,
                     modifier = Modifier.fillMaxSize(),
                     contentPadding = padding,
@@ -211,7 +210,6 @@ private fun BozorGoNavHost(
 
         composable(Screen.Checkout.route) {
             CheckoutRoute(
-                contentPadding = contentPadding,
                 onBackClick = { navController.popBackStack() },
                 onOrderPlaced = { orderId ->
                     navController.navigate(Screen.OrderSuccess.createRoute(orderId)) {
