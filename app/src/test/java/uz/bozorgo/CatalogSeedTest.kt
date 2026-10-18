@@ -1,6 +1,7 @@
 package uz.bozorgo
 
 import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth.assertWithMessage
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
@@ -79,7 +80,9 @@ class CatalogSeedTest {
             assertThat(product["brand"].asString).isNotEmpty()
             assertThat(product.has("stock")).isTrue()
             assertThat(product["stock"].asInt).isAtLeast(0)
-            assertThat(product["rating"].asDouble).isIn(0.0..5.0)
+            val rating = product["rating"].asDouble
+            assertThat(rating).isAtLeast(0.0)
+            assertThat(rating).isAtMost(5.0)
             assertThat(product["reviewCount"].asInt).isAtLeast(0)
             assertThat(product["inStock"].asBoolean).isEqualTo(product["stock"].asInt > 0)
 
@@ -120,7 +123,7 @@ class CatalogSeedTest {
         )
         val actual = products.groupingBy { it["categoryId"].asString }.eachCount()
         expected.forEach { (category, count) ->
-            assertThat(actual[category]).named("Kategoriya: $category").isEqualTo(count)
+            assertWithMessage("Kategoriya: $category").that(actual[category]).isEqualTo(count)
         }
         assertThat(actual.values.sum()).isEqualTo(products.size)
     }
