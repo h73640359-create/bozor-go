@@ -109,7 +109,8 @@ jobs:
               if seed not in names:
                   problems.append(f"APK ichida seed fayli yo'q: {seed}")
 
-          print(f"APK hajmi: {sum(z.getinfo(i).file_size for i in z.infolist()) / 1024 / 1024:.1f} MB")
+          apk_bytes = sum(info.file_size for info in z.infolist())
+          print(f"APK hajmi: {apk_bytes / 1024 / 1024:.1f} MB")
           print(f"Rasmlar jami: {total_bytes / 1024 / 1024:.2f} MB")
 
           for problem in problems:
